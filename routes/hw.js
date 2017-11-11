@@ -4,7 +4,6 @@ const HW = require('../models/homework')
 
 /* GET homework home page. */
 router.get('/', function(req, res) {
-  // res.render('hw', { title: 'Homework' });
     HW.find({}).then(function(result){
      console.log(result)
       res.render('hw', { title:'Homework' , result :result });

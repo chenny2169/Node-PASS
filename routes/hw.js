@@ -2,19 +2,20 @@ var express = require('express');
 var router = express.Router();
 const HW = require('../models/homework')
 
-/* GET home page. */
+/* GET homework home page. */
 router.get('/', function(req, res) {
   // res.render('hw', { title: 'Homework' });
     HW.find({}).then(function(result){
-      // let JsonObj = JSON.parse(result)
-      // console.log(JsonObj)
+     console.log(result)
       res.render('hw', { title:'Homework' , result :result });
     })
 });
 
-router.post('/addHW', function(req, res){
+/* POST Add homework. */
+router.post('/addHW', function(req, res, next){
      HW.create(req.body).then(function(result){
-       res.send(result)
+       console.log(result)
+       res.redirect('/hw')
     });
 })
 

@@ -1,14 +1,85 @@
 <!DOCTYPE html>
 
 <% include header.ejs %>
-
+<div class="container services">
 <div class="well jumbotron">
 <h1><%= title %></h1>
 <p>This is a simple hero</p>
-<% result.forEach( function( hw ){ %>
-  <p><%= hw.name %></p>
-<% }); %>
-<p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
-</div>
+<table class="table table-inverse">
+      <thead>
+        <tr>
+          <th>courseName</th>
+          <th>homeworkName</th>
+          <th>dueDate</th>
+          <th>percentage</th>
+          <th>homeworkDescription</th>
+        </tr>
+      </thead>
 
+      <tbody>
+        <% for(var i=0; i < result.length; i++) { %>
+       <tr>
+        <td>
+          <a href="/<%= result[i].courseName %>" target="_blank" title="<%= result[i].courseName %>">
+             <%= result[i].courseName %>
+          </a>
+        </td>
+    
+         <td><%= result[i].homeworkName %></td>
+         <td><%= result[i].dueDate %></td>
+         <td><%= result[i].percentage %></td>
+         <td><%= result[i].homeworkDescription %></td>
+       </tr>
+    <% } %>
+      </tbody>
+    </table>
+
+</div>
+<div class="center"><button data-toggle="modal" data-target="#squarespaceModal" class="btn btn-primary btn-lg center-block">Click Me</button></div>
+    <!-- line modal -->
+<div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel">新增作業</h3>
+		</div>
+		<div class="modal-body">
+			
+            <!-- content goes here -->
+			<form action="hw/addHW" method="POST">
+              <div class="form-group">
+                <label for="selectCourse">課程名稱</label>
+                <input  class="form-control" name="courseName" id="InputselectCourse" placeholder="選擇課程">
+              </div>
+               <div class="form-group">
+                <label for="homeworkName">作業名稱</label>
+                <input class="form-control" name="homeworkName" id="InputhomeworkName" placeholder="第幾次作業">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">繳交期限</label>
+                <input type="text" class="form-control" name="dueDate" id="InputDueDate" placeholder="繳交期限">
+              </div>
+              <div class="form-group">
+                <label for="hwPercentage">比重</label>
+                <input  class="form-control" name="percentage" id="InputhwPercentage" placeholder="作業比重%">
+              </div>
+
+              <div class="form-group">
+                <label for="hwDescription">作業描述</label></br>
+                <textarea rows="3" cols="50" name="homeworkDescription"></textarea>
+              </div>
+              <div class="checkbox" name="lateSubmit">
+                <label>
+                  <input type="checkbox"> 逾期補交
+                </label>
+              </div>
+              <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+
+		</div>
+	</div>
+  </div>
+</div>
+</div>
 <% include footer.ejs %>

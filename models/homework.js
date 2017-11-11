@@ -2,10 +2,19 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
 const HwSchema = new Schema({
-    name:{
+    courseName:{
+        type : String
+    },
+    homeworkName:{
+        type : String
+    },
+    dueDate:{
         type : String
     },
     percentage :{
+        type : String
+    },
+    homeworkDescription:{
         type : String
     }
 })

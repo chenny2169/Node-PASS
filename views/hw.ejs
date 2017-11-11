@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+
+<% include header.ejs %>
+
+<div class="well jumbotron">
+<h1><%= title %></h1>
+<p>This is a simple hero</p>
+<% result.forEach( function( hw ){ %>
+  <p><%= hw.name %></p>
+<% }); %>
+<p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
+</div>
+
+<% include footer.ejs %>

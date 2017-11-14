@@ -13,6 +13,9 @@ const GradeSchema = new Schema({
     },
     submitTime:{
         type : String
+    },
+    homework_uuid:{
+        type : String
     }
 })
 

@@ -5,8 +5,8 @@ const GradeDB = require('../models/grades')
 const studentDB = require('../models/student')
 
 /* GET homework home page. */
-router.get('/', function(req, res) {
-    HW.find({}).then(function(result){
+router.get('/:courseName', function(req, res) {
+    HW.find({"courseName":req.params.courseName}).then(function(result){
      console.log(result)
       res.render('hw', { title:'Homework' , result :result });
     })
@@ -32,7 +32,7 @@ router.post('/addHW', function(req, res, next){
         })
    })
 
-    res.redirect('/hw')
+    res.redirect('/hw/'+req.body.courseName)
 })
 
 

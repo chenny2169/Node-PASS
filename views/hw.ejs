@@ -20,15 +20,17 @@
         <% for(var i=0; i < result.length; i++) { %>
        <tr>
         <td>
-          <a href="/<%= result[i].courseName %>" target="_blank" title="<%= result[i].courseName %>">
-             <%= result[i].courseName %>
-          </a>
+          <%= result[i].courseName %>
         </td>
     
-         <td><%= result[i].homeworkName %></td>
-         <td><%= result[i].dueDate %></td>
-         <td><%= result[i].percentage %></td>
-         <td><%= result[i].homeworkDescription %></td>
+        <td>
+          <a href="/markHomework/<%= result[i]._id %>" target="_blank" title="<%= result[i]._id %>">
+            <%= result[i].homeworkName %>
+          </a>
+        </td>
+        <td><%= result[i].dueDate %></td>
+        <td><%= result[i].percentage %></td>
+        <td><%= result[i].homeworkDescription %></td>
        </tr>
     <% } %>
       </tbody>

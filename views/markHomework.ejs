@@ -24,7 +24,7 @@
                                 <td><%= result[i].studentName %></td>
                                 <td><%= result[i].homeworkGrade %></td>
                                 <td><%= result[i].submitTime %></td>
-                                <td><a class="btn btn-info" href="/markHomework/person/info/<%= result[i].studentID %>" title="<%= result[i].studentID %>">批改</a></td><!-- href到個人 -->
+                                <td><a class="btn btn-info" href="/markHomework/person/info/<%= result[i].studentID %>/<%= result[i].homework_uuid %>" title="<%= result[i].studentID %>">批改</a></td><!-- href到個人 -->
                             </tr>
                             <% } %>
                         </tbody>

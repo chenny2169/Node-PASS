@@ -3,25 +3,20 @@ var router = express.Router();
 const GradesDB = require('../models/grades')
 
 /* GET grades home page. */
-router.get('/', function(req, res) {
-    GradesDB.find({}).then(function(result){
+router.get('/:homework_uuid', function(req, res) {
+  GradesDB.find({"homework_uuid": req.params.homework_uuid}).then(function(result){
     console.log(result)
     res.render('markHomework', { title:'批改作業專區',  result :result})
   })
 })
 
-//Mock for adding user info for grades
-router.post('/monkData', function(req, res){
-    GradesDB.create(req.body).then(function(result){
-    console.log(result)
-  })
-})
 
 // get specific student hw info
-router.get('/person/info/:id', function(req, res){
-    GradesDB.find({"studentID":req.params.id}).then(function(result){
-    console.log(result)
-    res.render('markPersonHomework',{title : '作業狀態', result : result})   
+router.get('/person/info/:studentID/:homework_uuid', function(req, res){
+    GradesDB.find({"studentID":req.params.studentID, "homework_uuid":req.params.homework_uuid})
+      .then(function(result){
+        console.log(result)
+        res.render('markPersonHomework',{title : '作業狀態', result : result})   
   })
 })
 
@@ -30,8 +25,10 @@ router.get('/person/info/:id', function(req, res){
 router.post('/person/updateGrade', function(req, res){
   console.log(req.body.grade)
   console.log(req.query.studentID)
-  GradesDB.update({studentID : req.query.studentID},{$set:{homeworkGrade : req.body.grade}})
-          .then(function(result){res.redirect('/markHomework')})
+  GradesDB.update({studentID : req.query.studentID, homework_uuid : req.query.homework_uuid},
+    {$set:{homeworkGrade : req.body.grade}}).then(function(result){
+      res.redirect('/markHomework/'+req.query.homework_uuid)
+    })
 })
 
 

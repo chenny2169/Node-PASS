@@ -22,7 +22,7 @@
                                 <td><%= result[i].studentID %></td>
                                 <td><%= result[i].studentName %></td>
                                 <td><%= result[i].submitTime %></td>
-                                <td><a class="btn btn-info" href="" title="下載同學作業">下載作業</a></td>
+                                <td><a class="btn btn-info" href="/markHomework/person/download?studentID=<%= result[i].studentID %>&homework_uuid=<%= result[i].homework_uuid %>" title="下載同學作業" >下載作業</a></td>
                                 <td><input type="text" id="grade" name="grade" value="<%= result[i].homeworkGrade %>"></td>
                             </tr>
                             <% } %>

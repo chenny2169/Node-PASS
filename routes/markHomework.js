@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 const GradesDB = require('../models/grades')
+const HW = require('../models/homework')
+
 
 /* GET grades home page. */
 router.get('/:homework_uuid', function(req, res) {
@@ -29,6 +31,16 @@ router.post('/person/updateGrade', function(req, res){
     {$set:{homeworkGrade : req.body.grade}}).then(function(result){
       res.redirect('/markHomework/'+req.query.homework_uuid)
     })
+})
+
+router.get('/person/download', function(req, res){
+  let homeworkName;
+  console.log(req.query.homework_uuid)
+  HW.find({"_id" : req.query.homework_uuid}).then(function(result){
+    console.log(result)
+    homeworkName=result[0].homeworkName
+    res.download("homeworkCollection/"+req.query.studentID+"_"+homeworkName+".txt")
+  })
 })
 
 

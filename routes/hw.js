@@ -22,11 +22,12 @@ router.post('/addHW', function(req, res, next){
                     studentName:student.studentName,
                     homeworkGrade:'',
                     submitTime:'',
-                    homework_uuid:homework._id.toString()
+                    homework_uuid:homework._id.toString(),
+                    homeworkState:'未繳交'
                 }
 
                 GradeDB.create(grade).then(function(result) {
-                console.log(result)
+                    console.log(result)
                 })
             })
         })

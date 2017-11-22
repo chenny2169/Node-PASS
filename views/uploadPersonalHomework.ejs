@@ -1,0 +1,54 @@
+<% include header.ejs %>
+<style>
+    th {
+        text-align:center
+    }
+</style>
+<div class="container services">
+<div class="jumbotron" >
+<h1><%= title %></h1>        
+</div>
+<div class="container">
+    <div class="colum">
+        <div class="span5 " >
+            <table class="table" >
+                <tr>
+                    <th >作業名稱</th>
+                    <td><%= result[0].homeworkName %></td>                              
+                </tr>
+                <tr>
+                    <th>繳交期限</th>
+                    <td><%= result[0].dueDate %></td>
+                </tr>
+                <tr>
+                    <th>附屬檔名</th>
+                    <td><%= result[0].fileExtension %></td>
+                </tr>    
+                <tr>
+                    <th>比重</th>
+                    <td><%= result[0].percentage %></td>
+                </tr>                        
+            </table>
+            <form action="/listCourse/listHomework/upload?homework_uuid=<%= result[0]._id %>&studentID=105598001" method="POST" align="center" enctype="multipart/form-data">
+        
+                <label align="center" >
+                    <input type="file"  id="uploadFile" name="uploadFile"  accept="application/<%= result[0].fileExtension %>"   />
+                    <label for="uploadFile" ></label>
+                
+                    <span style="width:100px">&nbsp;&nbsp;</span>
+                    
+                </label><br>
+                <a align="center" class="btn btn-info" href="/listCourse/listHomework/download?homework_uuid=<%= result[0]._id %>&studentID=105598001">下載</a>
+                
+
+            
+                <input type="submit" class="btn btn-info" value="確定上傳">
+                <span style="width:100px">&nbsp;&nbsp;</span>
+                <input type="reset" class="btn btn-default" value="取消">
+            </form> 
+        </div>   
+    </div>
+</div>
+    
+</div>
+

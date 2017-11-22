@@ -5,12 +5,14 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 const mongoose = require('mongoose')
+const fileUpload = require('express-fileupload');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 var hw = require('./routes/hw');
 var course = require('./routes/course')
 var markHomework = require('./routes/markHomework')
+var listCourse = require('./routes/listCourse')
 
 
 var app = express();
@@ -29,12 +31,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(fileUpload());
 
 app.use('/', index);
 app.use('/users', users);
 app.use('/hw',hw)
 app.use('/course',course)
 app.use('/markHomework',markHomework)
+app.use('/listCourse',listCourse)
+
 
 
 // catch 404 and forward to error handler

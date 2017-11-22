@@ -16,6 +16,9 @@ const GradeSchema = new Schema({
     },
     homework_uuid:{
         type : String
+    },
+    homeworkState:{
+        type : String
     }
 })
 

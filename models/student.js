@@ -9,7 +9,7 @@ const StudentSchema = new Schema({
         type : String
     },
     courseID:{
-        type : String
+        type : [String]
     }
 })
 

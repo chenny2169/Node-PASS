@@ -16,6 +16,9 @@ const HwSchema = new Schema({
     },
     homeworkDescription:{
         type : String
+    },
+    fileExtension:{
+        type : String
     }
 })
 

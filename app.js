@@ -12,11 +12,8 @@ var users = require('./routes/users');
 var hw = require('./routes/hw');
 var course = require('./routes/course')
 var markHomework = require('./routes/markHomework')
-<<<<<<< HEAD
 var gradesReport = require('./routes/gradesReport')
-=======
 var listCourse = require('./routes/listCourse')
->>>>>>> 01dd5d5db0f68512096b8d29beb45464cecadeb2
 
 
 var app = express();

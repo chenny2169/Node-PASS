@@ -1,0 +1,78 @@
+<html>
+  <head>
+  
+    <div style="text-align:center;">
+  　  <div style="margin:0 auto;font-size: 30px;"><strong><h1><%= title %>作業成績分佈表</h1></strong></div>
+    </div>
+
+    <meta charset="UTF-8">
+   <link rel='stylesheet' href='/stylesheets/table.css' />
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <div style="width: 60%; float:left">
+    <div style="margin-right:100px; margin-top:100px">
+
+    <table class="t1">
+     <thead>
+        <tr>
+          <th>StudentID</th>
+          <th>StudentName</th>
+          <th>Grade</th>
+        </tr>
+      </thead>
+        <tfoot>
+    <tr><th colspan="3"></th></tr>
+    </tfoot>
+
+    <tbody>
+           <%  for(var i=0; i < result.length; i++) { %>
+        <tr>
+            <th><%= result[i].studentID %></th>
+            <td><%= result[i].studentName %></td>
+            <td><%= result[i].homeworkGrade %></td>
+        </tr>
+     <%  }  %>
+    <tr><th>總平均</th><td></td><td><font color="#FF0000"><%= result.average  %></front></td></tr>
+    </tbody>
+    </table>
+     </div>
+    </div>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+       
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['score', 'number of people'],
+          ['100-90',    <%= pieChartInfos.get('10')+pieChartInfos.get('9')%>],
+          ['89-80',     <%= pieChartInfos.get('8') %>],
+          ['79-70',  <%= pieChartInfos.get('7') %>],
+          ['69-60',<%= pieChartInfos.get('6') %>],
+          ['不及格',   <%= pieChartInfos.get('UnderSixty') %>]
+        ]);
+
+        var options = {
+          // title: 'HW1作業成績分布表',
+		      is3D: true,
+          chartArea:{left:10,top:20,width:"100%",height:"100%",margin:"0px"}
+          // legend: {'position':'top','alignment':'center'},
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+  </head>
+
+  <div style="width: 40%; float:right">
+  <body>
+    <div id="piechart" style="width: 540px; height: 500px;  margin-right: 0px"></div>
+  </body>
+ </div>
+
+
+
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<% include header.ejs %>
+
+<div class="container services">
+  <div class="well jumbotron">
+    <h1><%= title %></h1>
+    <p>select grade report for course</p>
+  </div>
+  <table class="table table-inverse" id="myTable">
+        <thead>
+          <tr>
+            <th>courseName</th>
+            <th>homework name</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% for(var i=0; i < result.length; i++) { %>
+        <tr>
+          <td>
+            <a href="/hw/<%= result[i].courseName %>" title="<%= result[i].courseName %>">
+              <%= result[i].courseName %>
+            </a>
+          </td>
+            
+          <td>
+            <select class="custom-select" id="selectedHomework<%= i %>" onChange="myFunction(selectedHomework<%= i %>)">
+                <option value="0" selected="true" disabled="disabled">選擇作業</option>
+                  <% for(var q=0; q < result[i].hwinfo.length; q++) { %>
+                <option value="courseName=<%= result[i].hwinfo[q].homeworkName %>&&homework_id=<%= result[i].hwinfo[q].homework_id %>"><%= result[i].hwinfo[q].homeworkName %></option>
+                      <% } %>
+            </select> 
+          </td>
+        </tr>
+      <% } %>
+        </tbody>
+        <td><a class="btn btn-danger" href="" id="SubmitBtn">產生報表</a></td>
+  </table>
+</div>
+
+<script>
+function myFunction(sel) {
+  let changeValue=document.getElementById(sel.id).value
+  let rows = document.getElementById('myTable')
+                     .getElementsByTagName('tbody')[0]
+                     .getElementsByTagName('tr').length
+  for(let i=0; i<rows;i++){
+    if(document.getElementsByTagName('select')[i].getAttribute('id')!=sel.id)
+       document.getElementById("selectedHomework"+i).value="0"
+  }
+  document.getElementById("SubmitBtn").href = '/gradesReport/generate?'+changeValue;
+ 
+}
+</script>
+<% include footer.ejs %>

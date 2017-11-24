@@ -8,26 +8,17 @@ const studentDB = require('../models/student')
 
 
 /* GET homework home page. */
-// router.get('/:studentID', function(req, res) {
-//   let result = []
-//   studentDB.find({"studentID" :req.params.studentID}).then(function(student){
-//     student[0].courseID.forEach(function(courseID) {
-//       CourseDB.find({"_id" :courseID}).then(function(course){
-//         result.push(course)
-    
-//         return result
-//       })
-          
-//     })
-//   }).then(function (result) {
-//     console.log(result)
-//     res.render('listCourse', { title:'作業繳交區' , result :result });
-//     // console.log("result=")
-//   })
-   
-// });
-
-
+router.get('/:studentID', function(req, res){
+  studentDB.find({"studentID" :req.params.studentID}).then(function(student){
+      console.log(student[0].studentID) 
+      return student[0].courseID
+  }).then(function(courseID){
+      CourseDB.find({'courseID':courseID}).then(function(courseInfo){
+        console.log(courseInfo)
+        res.render('listCourse',{title:'作業繳交區',result:courseInfo})
+      })
+  })
+})
 
 
 router.get('/', function(req, res) {

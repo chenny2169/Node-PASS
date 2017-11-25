@@ -31,7 +31,7 @@ router.get('/', function(req, res){
         })
         return homeworkCollections
     }).then(function(homeworkCollections){
-        //console.log(homeworkCollections[1].hwinfo[0])
+        console.log(homeworkCollections)
         res.render('gradesReportIndex', {title:'Grades Report', result : homeworkCollections})
     })
 })
@@ -68,13 +68,11 @@ function valueExists(homeworkCollections, value){
             return false        
     }
     for(let i=0 ; i<homeworkCollections.length; i++){
-        if(homeworkCollections[i].courseName != value){
-               return false
-        }
-        else{
-            return true
+        if(homeworkCollections[i].courseName == value){
+               return true
         }
     }
+    return false
 }
 
 module.exports = router;

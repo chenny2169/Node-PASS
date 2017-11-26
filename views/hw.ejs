@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-
-<% include header.ejs %>
+<% include headerTimepicker.ejs %>
 <div class="container services">
 <div class="well jumbotron">
 <h1><%= title %></h1>
@@ -36,57 +35,67 @@
        </tr>
     <% } %>
       </tbody>
-    </table>
-
+</table>
 </div>
 <div class="center"><button data-toggle="modal" data-target="#squarespaceModal" class="btn btn-primary btn-lg center-block">Click Me</button></div>
     <!-- line modal -->
 <div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
   <div class="modal-dialog">
-	<div class="modal-content">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-			<h3 class="modal-title" id="lineModalLabel">新增作業</h3>
-		</div>
-		<div class="modal-body">
-			
-            <!-- content goes here -->
-			<form action="/hw/addHW" method="POST">
-              <div class="form-group">
-                <label for="selectCourse">課程名稱</label>
-                <input  class="form-control" name="courseName" id="InputselectCourse" value="<%= result[0].courseName %>" readonly>
-              </div>
-               <div class="form-group">
-                <label for="homeworkName">作業名稱</label>
-                <input class="form-control" name="homeworkName" id="InputhomeworkName" placeholder="第幾次作業">
-              </div>
-              <div class="form-group">
-                <label for="exampleInputPassword1">繳交期限</label>
-                <input type="text" class="form-control" name="dueDate" id="InputDueDate" placeholder="繳交期限">
-              </div>
-              <div class="form-group">
-                <label for="hwPercentage">比重</label>
-                <input  class="form-control" name="percentage" id="InputhwPercentage" placeholder="作業比重%">
-              </div>
-              <div class="form-group">
-                  <label for="hwFileExtension">附屬檔名</label>
-                  <input  class="form-control" name="fileExtension" id="InputhwFileExtension" placeholder="附屬檔名">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+        <h3 class="modal-title" id="lineModalLabel">新增作業</h3>
+      </div>
+      <div class="modal-body">
+        <!-- content goes here -->
+        <form action="/hw/addHW" method="POST">
+                <div class="form-group">
+                  <label for="selectCourse">課程名稱</label>
+                  <input  class="form-control" name="courseName" id="InputselectCourse" value="<%= result[0].courseName %>" readonly>
                 </div>
-              <div class="form-group">
-                <label for="hwDescription">作業描述</label></br>
-                <textarea rows="3" cols="50" name="homeworkDescription"></textarea>
-              </div>
-              <div class="checkbox" name="lateSubmit">
-                <label>
-                  <input type="checkbox"> 逾期補交
-                </label>
-              </div>
-              <button type="submit" class="btn btn-default">Submit</button>
-            </form>
-
-		</div>
-	</div>
+                <div class="form-group">
+                  <label for="homeworkName">作業名稱</label>
+                  <input class="form-control" name="homeworkName" id="InputhomeworkName" placeholder="第幾次作業">
+                </div>
+                <div class="form-group">
+                <label for="dueDate">繳交期限</label>
+                  <div class="input-group date" id="datetimepicker1">
+                      <input type="text" class="form-control" name="dueDate" id="InputDueDate"/>
+                      <span class="input-group-addon">
+                          <span class="glyphicon glyphicon-calendar"></span>
+                      </span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="hwPercentage">比重</label>
+                  <input  class="form-control" name="percentage" id="InputhwPercentage" placeholder="作業比重%">
+                </div>
+                <div class="form-group">
+                    <label for="hwFileExtension">附屬檔名</label>
+                    <input  class="form-control" name="fileExtension" id="InputhwFileExtension" placeholder="附屬檔名">
+                  </div>
+                <div class="form-group">
+                  <label for="hwDescription">作業描述</label></br>
+                  <textarea rows="3" cols="50" name="homeworkDescription"></textarea>
+                </div>
+                <div class="checkbox" name="lateSubmit">
+                  <label>
+                    <input type="checkbox"> 逾期補交
+                  </label>
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+      </div>
+    </div>
   </div>
 </div>
 </div>
-<% include footer.ejs %>
+<script type="text/javascript">
+  $(function () {
+      $('#datetimepicker1').datetimepicker({
+          defaultDate:new Date()
+      });
+  });
+</script>
+</body>
+</html>

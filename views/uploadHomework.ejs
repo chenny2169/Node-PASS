@@ -33,7 +33,7 @@
             <form action="/listHomework/upload?homework_uuid=<%= result.homework[0]._id %>&studentID=<%= result.studentID %>" method="POST" align="center" enctype="multipart/form-data">
         
                 <label align="center" >
-                    <input type="file"  id="uploadFile" name="uploadFile"  accept="application/<%= result.homework[0].fileExtension %>"   />
+                    <input type="file"  id="uploadFile" name="uploadFile"  accept=".<%= result.homework[0].fileExtension %>"   />
                     <label for="uploadFile" ></label>
                 
                     <span style="width:100px">&nbsp;&nbsp;</span>

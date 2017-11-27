@@ -20,12 +20,9 @@ router.post('/addHW', function(req, res, next){
                 let grade = {
                     studentID:student.studentID,
                     studentName:student.studentName,
-                    homeworkGrade:'',
                     submitTime:'',
-                    homework_uuid:homework._id.toString(),
-                    homeworkState:'未繳交'
+                    homework_uuid:homework._id.toString()
                 }
-
                 GradeDB.create(grade).then(function(result) {
                     console.log(result)
                 })

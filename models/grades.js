@@ -9,7 +9,8 @@ const GradeSchema = new Schema({
         type : String
     },
     homeworkGrade:{
-        type : String
+        type : String,
+        default : '0'
     },
     submitTime:{
         type : String
@@ -18,7 +19,8 @@ const GradeSchema = new Schema({
         type : String
     },
     homeworkState:{
-        type : String
+        type : String,
+        default : '未繳交'
     }
 })
 

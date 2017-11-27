@@ -5,34 +5,34 @@
 <div class="well jumbotron">
 <h1><%= title %></h1>
 <p>This is a simple hero</p>
-<table class="table table-inverse">
-      <thead>
-        <tr>
-          
-          <th>courseName</th>
-          <th>courseID</th>
-          <th>classroom</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% for(var i=0; i < result.length; i++) { %>
-       <tr>
-        <td>
-          <a href="/hw/<%= result[i].courseName %>" title="<%= result[i].courseName %>">
-             <%= result[i].courseName %>
-          </a>
-        </td>
-    
-        
-         <td><%= result[i].courseID %></td>
-         <td><%= result[i].classroom %></td>
-       </tr>
-    <% } %>
-      </tbody>
-    </table>
-
 </div>
-
+<div>
+    <table class="table table-inverse">
+        <thead>
+          <tr>
+            
+            <th>courseName</th>
+            <th>courseID</th>
+            <th>classroom</th>
+          </tr>
+        </thead>
+  
+        <tbody>
+          <% for(var i=0; i < result.length; i++) { %>
+         <tr>
+          <td>
+            <a href="/hw/<%= result[i].courseName %>" title="<%= result[i].courseName %>">
+               <%= result[i].courseName %>
+            </a>
+          </td>
+      
+          
+           <td><%= result[i].courseID %></td>
+           <td><%= result[i].classroom %></td>
+         </tr>
+      <% } %>
+        </tbody>
+      </table>
+</div>
 </div>
 <% include footer.ejs %>

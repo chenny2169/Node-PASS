@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<% include headerTimepicker.ejs %>
+<% include header.ejs %>
+<!--<% include headerTimepicker.ejs %>-->
+
 <div class="container services">
 <div class="well jumbotron">
 <h1><%= title %></h1>
 <p>This is a simple hero</p>
+</div>
 <table class="table table-inverse">
       <thead>
         <tr>
@@ -36,8 +39,7 @@
     <% } %>
       </tbody>
 </table>
-</div>
-<div class="center"><button data-toggle="modal" data-target="#squarespaceModal" class="btn btn-primary btn-lg center-block">Click Me</button></div>
+<div class="center"><button data-toggle="modal" data-target="#squarespaceModal" class="btn btn-primary btn-lg center-block">新增作業</button></div>
     <!-- line modal -->
 <div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
   <div class="modal-dialog">

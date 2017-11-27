@@ -20,13 +20,13 @@
                 </thead>   
                 <tbody>
                     <tr>
-                        <%  for(var i=0; i < result.length; i++) { %>
-                        <td><%= result[i].homeworkName %></td>
-                        <td></td>
-                        <td><%= result[i].dueDate %></td>
-                        <td><%= result[i].submitTime %></td>
-                        <td><%= result[i].studentID %></td>
-                        <td><a class="btn btn-info" href="/listCourse/uploadPersonalHomework?homework_uuid=<%= result[i]._id %>&studentID=105598001" >上傳作業</a></td>                                       
+                        <%  for(let i=0; i < result.homeworks.length; i++) { %>
+                        <td><%= result.homeworks[i].homeworkName %></td>
+                        <td><%= result.grades[i].homeworkState %></td>
+                        <td><%= result.homeworks[i].dueDate %></td>
+                        <td><%= result.grades[i].submitTime %></td>
+                        <td><%= result.grades[i].homeworkGrade %></td>
+                        <td><a class="btn btn-info" href="/listHomework/uploadHomework?homework_uuid=<%= result.homeworks[i]._id %>&studentID=<%= result.studentID %>" >上傳作業</a></td>                                       
                     </tr>
                     <% } %>             
                 </tbody>

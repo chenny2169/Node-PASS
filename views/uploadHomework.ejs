@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <% include header.ejs %>
 <style>
     th {
@@ -14,31 +15,31 @@
             <table class="table" >
                 <tr>
                     <th >作業名稱</th>
-                    <td><%= result[0].homeworkName %></td>                              
+                    <td><%= result.homework[0].homeworkName %></td>                              
                 </tr>
                 <tr>
                     <th>繳交期限</th>
-                    <td><%= result[0].dueDate %></td>
+                    <td><%= result.homework[0].dueDate %></td>
                 </tr>
                 <tr>
                     <th>附屬檔名</th>
-                    <td><%= result[0].fileExtension %></td>
+                    <td><%= result.homework[0].fileExtension %></td>
                 </tr>    
                 <tr>
                     <th>比重</th>
-                    <td><%= result[0].percentage %></td>
+                    <td><%= result.homework[0].percentage %></td>
                 </tr>                        
             </table>
-            <form action="/listCourse/listHomework/upload?homework_uuid=<%= result[0]._id %>&studentID=105598001" method="POST" align="center" enctype="multipart/form-data">
+            <form action="/listHomework/upload?homework_uuid=<%= result.homework[0]._id %>&studentID=<%= result.studentID %>" method="POST" align="center" enctype="multipart/form-data">
         
                 <label align="center" >
-                    <input type="file"  id="uploadFile" name="uploadFile"  accept="application/<%= result[0].fileExtension %>"   />
+                    <input type="file"  id="uploadFile" name="uploadFile"  accept="application/<%= result.homework[0].fileExtension %>"   />
                     <label for="uploadFile" ></label>
                 
                     <span style="width:100px">&nbsp;&nbsp;</span>
                     
                 </label><br>
-                <a align="center" class="btn btn-info" href="/listCourse/listHomework/download?homework_uuid=<%= result[0]._id %>&studentID=105598001">下載</a>
+                <a align="center" class="btn btn-info" href="/listHomework/download?homework_uuid=<%= result.homework[0]._id %>&studentID=<%= result.studentID %>">下載</a>
                 
 
             
@@ -52,3 +53,4 @@
     
 </div>
 
+<% include footer.ejs %>

@@ -19,13 +19,13 @@
                     </tr>
                 </thead>   
                 <tbody>
-                    <%  for(var i=0; i < result.length; i++) { %>
+                    <%  for(let i=0; i < result.course.length; i++) { %>
                     <tr>
-                        <td><%= result[i].courseID %></td>
-                        <td><%= result[i].courseName %></td>
-                        <td><%= result[i].classroom %></td>
-                        <td><%= result[i].instructor %></td>
-                        <td><a class="btn btn-info" href="/listCourse/listHomework?courseName=<%= result[i].courseName %>&studentID=105598001">進入</a></td>                                       
+                        <td><%= result.course[i].courseID %></td>
+                        <td><%= result.course[i].courseName %></td>
+                        <td><%= result.course[i].classroom %></td>
+                        <td><%= result.course[i].instructor %></td>
+                        <td><a class="btn btn-info" href="/listHomework?courseName=<%= result.course[i].courseName %>&studentID=<%= result.studentID %>">進入</a></td>                                       
                     </tr>
                     <% } %>           
                 </tbody>

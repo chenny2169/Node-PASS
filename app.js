@@ -14,7 +14,7 @@ var course = require('./routes/course')
 var markHomework = require('./routes/markHomework')
 var gradesReport = require('./routes/gradesReport')
 var listCourse = require('./routes/listCourse')
-
+var listHomework = require('./routes/listHomework')
 
 var app = express();
 mongoose.connect('mongodb://localhost/hwgo')
@@ -42,7 +42,7 @@ app.use('/course',course)
 app.use('/markHomework',markHomework)
 app.use('/gradesReport',gradesReport)
 app.use('/listCourse',listCourse)
-
+app.use('/listHomework',listHomework)
 
 
 // catch 404 and forward to error handler

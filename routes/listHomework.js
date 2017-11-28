@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const moment = require('moment');
 const CourseDB = require('../models/courses')
 const HW = require('../models/homework')
 const GradeDB = require('../models/grades')
@@ -80,16 +81,8 @@ router.get('/download', function(req, res){
   })
 })
 
-function upload() {
-  let currentdate = new Date(); 
-  let datetime = currentdate.getFullYear() + "/"
-                + (currentdate.getMonth()+1)  + "/" 
-                + currentdate.getDate() 
-                + "   "  
-                + currentdate.getHours() + ":"  
-                + currentdate.getMinutes() + ":" 
-                + currentdate.getSeconds();
-  console.log(datetime)
-  return datetime
+function upload() {   
+
+  return moment().format('YYYY/MM/DD,  H:mm:ss ')
 }
 module.exports = router;

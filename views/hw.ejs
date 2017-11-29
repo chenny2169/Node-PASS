@@ -16,6 +16,7 @@
           <th>percentage</th>
           <th>fileExtension</th>
           <th>homeworkDescription</th>
+          <th>editState</th>
         </tr>
       </thead>
 
@@ -25,7 +26,6 @@
         <td>
           <%= result[i].courseName %>
         </td>
-    
         <td>
           <a href="/markHomework/<%= result[i]._id %>" title="<%= result[i]._id %>">
             <%= result[i].homeworkName %>
@@ -35,6 +35,7 @@
         <td><%= result[i].percentage %></td>
         <td><%= result[i].fileExtension %></td>
         <td><%= result[i].homeworkDescription %></td>
+        <td class="center"><a  class="btn btn-primary btn-sm"  href="/hw/edit/<%= result[i]._id %>">編輯作業</a></td>
        </tr>
     <% } %>
       </tbody>

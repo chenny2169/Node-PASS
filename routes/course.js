@@ -6,8 +6,12 @@ const HW = require('../models/homework')
 /* GET homework home page. */
 router.get('/', function(req, res) {
     CourseDB.find({}).then(function(result){
-     console.log(result)
-      res.render('course', { title:'Course' , result :result });
+        if(req.header('Content-Type')=='application/json'){
+            res.json({result: result})
+        }
+        else{
+            res.render('course', { title:'Course' , result :result });
+        }
     })
 });
 

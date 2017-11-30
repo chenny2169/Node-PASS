@@ -19,6 +19,10 @@ const HwSchema = new Schema({
     },
     fileExtension:{
         type : String
+    },
+    dueDateExtension:{
+        type : Boolean,
+        default : false
     }
 })
 

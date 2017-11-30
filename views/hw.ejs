@@ -16,6 +16,7 @@
           <th>percentage</th>
           <th>fileExtension</th>
           <th>homeworkDescription</th>
+          <th>補交</th>
           <th>editState</th>
         </tr>
       </thead>
@@ -35,6 +36,7 @@
         <td><%= result[i].percentage %></td>
         <td><%= result[i].fileExtension %></td>
         <td><%= result[i].homeworkDescription %></td>
+        <td><%= result[i].dueDateExtension ? "可以補交" : "不可補交" %></td>
         <td class="center"><a  class="btn btn-primary btn-sm"  href="/hw/edit/<%= result[i]._id %>">編輯作業</a></td>
        </tr>
     <% } %>
@@ -76,14 +78,14 @@
                 <div class="form-group">
                     <label for="hwFileExtension">附屬檔名</label>
                     <input  class="form-control" name="fileExtension" id="InputhwFileExtension" placeholder="附屬檔名">
-                  </div>
+                </div>
                 <div class="form-group">
                   <label for="hwDescription">作業描述</label></br>
                   <textarea rows="3" cols="50" name="homeworkDescription"></textarea>
                 </div>
-                <div class="checkbox" name="lateSubmit">
+                <div class="form-check">
                   <label>
-                    <input type="checkbox"> 逾期補交
+                    <input type="checkbox" name="dueDateExtension" id="dueDateExtension"> 逾期補交
                   </label>
                 </div>
                 <button type="submit" class="btn btn-default">Submit</button>

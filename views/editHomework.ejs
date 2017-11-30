@@ -31,15 +31,16 @@
                 </div>
                 <div class="form-group">
                     <label for="hwFileExtension">附屬檔名</label>
-                    <input  class="form-control" name="fileExtension" id="InputhwFileExtension" placeholder="附屬檔名" >
+                    <input  class="form-control" name="fileExtension" id="InputhwFileExtension" placeholder="附屬檔名"  value="<%= result[0].fileExtension %>">
                   </div>
                 <div class="form-group">
                   <label for="hwDescription">作業描述</label></br>
                   <textarea rows="3" cols="50" name="homeworkDescription"><%= result[0].homeworkDescription %></textarea>
                 </div>
-                <div class="checkbox" name="lateSubmit">
+                <div class="checkbox" >
                   <label>
-                    <input type="checkbox" value="<%= result[0].__v %>"> 逾期補交
+                    <% let checked = result[0].dueDateExtension ? "checked" : "" %>
+                    <input type="checkbox" name="dueDateExtension" id="dueDateExtension" <%= checked %>  > 逾期補交
                   </label>
                 </div>
                 <button type="submit" class="btn btn-default">Submit</button>
@@ -54,3 +55,8 @@
 </script>
 </body>
 </html>
+
+
+
+
+

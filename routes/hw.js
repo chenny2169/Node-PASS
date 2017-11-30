@@ -17,8 +17,8 @@ router.get('/edit/:_id', function(req, res){
 /* GET homework home page. */
 router.get('/:courseName', function(req, res) {
     HW.find({"courseName":req.params.courseName}).then(function(result){
-     console.log(result)
-      res.render('hw', { title:'Homework' , result :result })
+        console.log(result)
+        res.render('hw', { title:'Homework' , result :result })
     })
 });
 
@@ -47,16 +47,21 @@ router.post('/addHW', function(req, res, next){
 
 /* POST Edit homework. */
 router.post('/editHW', function(req, res){
-    console.log(req.body)
-    HW.update({_id : req.query.homework_uuid}, 
-        {$set:{homeworkName : req.body.homeworkName,
-             dueDate : req.body.dueDate, 
-             percentage : req.body.percentage, 
-             fileExtension : req.body.fileExtension, 
-             homeworkDescription : req.body.homeworkDescription}})
-        .then(function(result){
-            res.redirect('/hw/'+req.body.courseName)    
+
+    HW.update({_id : req.query.homework_uuid}, {$set:
+        {
+            homeworkName : req.body.homeworkName,
+            dueDate : req.body.dueDate, 
+            percentage : req.body.percentage, 
+            fileExtension : req.body.fileExtension, 
+            homeworkDescription : req.body.homeworkDescription,
+            dueDateExtension : req.body.dueDateExtension
+        }
+    }).then(function(result){
+        console.log(result)
+        res.redirect('/hw/'+req.body.courseName)    
     })
 })
+
 
 module.exports = router;

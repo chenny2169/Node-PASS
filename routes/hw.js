@@ -13,6 +13,19 @@ router.get('/edit/:_id', function(req, res){
     })
 })
 
+router.get('/delete/:_id', function(req, res){
+    HW.find({"_id":req.params._id}).then(function(hwinfo){
+        return hwinfo[0].courseName
+    }).then(function(courseName){
+        HW.remove({"_id":req.params._id}).then(function(result){
+            GradeDB.remove({"homework_uuid":req.params._id}).then(function(result){
+                 console.log(courseName)
+                 res.redirect('/hw/'+courseName)
+            })
+        })
+    })
+})
+
 
 /* GET homework home page. */
 router.get('/:courseName', function(req, res) {

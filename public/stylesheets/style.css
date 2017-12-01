@@ -1,8 +1,18 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
 
 a {
-  color: #00B7FF;
+  color: #000000;
+}
+
+.btn.icon  {
+  padding-top: 0px;
+}
+
+.btn.icon :hover {
+  padding-top: 0px;
+  color: red
+}
+
+
+a:hover .fa{
+color: 	#000000;
 }

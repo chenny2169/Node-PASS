@@ -16,7 +16,7 @@ describe('Todo CRUD integration testing', function () {
 			.set('Content-Type', 'application/json')
 			.expect(200)
 			.end(function(err, results){
-                console.log(results.body.result[0].courseName)
+                console.log(results.body.result)
 				results.body.result[0].courseName.should.equal('SE');
 				done();
 			});

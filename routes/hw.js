@@ -3,7 +3,7 @@ var router = express.Router();
 const HW = require('../models/homework')
 const GradeDB = require('../models/grades')
 const studentDB = require('../models/student')
-
+var controller = require('../controllers/homeworkController');
 
 
 router.get('/edit/:_id', function(req, res){
@@ -28,13 +28,7 @@ router.get('/delete/:_id', function(req, res){
 
 
 /* GET homework home page. */
-router.get('/:courseName', function(req, res) {
-    HW.find({"courseName":req.params.courseName}).then(function(result){
-        console.log(result)
-        res.render('hw', { title:'Homework' , result :result })
-    })
-});
-
+router.get('/:courseName', controller.showSpecificCourseHw)
 
 
 /* POST Add homework. */

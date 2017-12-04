@@ -120,3 +120,57 @@ describe('show homework belong to specific course ', function () {
   });
   
 });
+
+describe('edit for homework infos', function() {
+  it('should update the homework info if i edit it', function(done){
+      var homework = mongoose.model('hwCollection');
+      var homeworkMock = sinon.mock(homework);
+
+    homeworkMock
+      .expects('findOneAndUpdate')
+      .withArgs({"_id":'5a0e577a82cdf43790cc1572'}, {$set:
+        {
+            homeworkName : "6",
+            dueDate : "1211", 
+            percentage : "1", 
+            fileExtension : "txt", 
+            homeworkDescription : "this is hw1",
+            dueDateExtension : "false"
+        }
+    },{ new: true })
+      .resolves([
+        {
+          "homeworkName" : "6",
+          "dueDate" : "1211",
+          "percentage" : "10",
+          "fileExtension" : "txt", 
+          "homeworkDescription" : "THIS IS HW1",
+           "dueDateExtension": "false"
+        }
+      ]);
+
+    agent
+			.post('/hw/editHW?homework_uuid=5a0e577a82cdf43790cc1572')
+      .send( {
+            homeworkName : "6",
+            dueDate : "1211", 
+            percentage : "1", 
+            fileExtension : "txt", 
+            homeworkDescription : "this is hw1",
+            dueDateExtension : "false"
+        })
+			.set('Content-Type', 'application/json')
+			.end(function(err, results){
+				homeworkMock.verify()
+        homeworkMock.restore()
+        
+        results.body.result[0].homeworkName.should.equal('6')
+        results.body.result[0].homeworkName.should.equal('1211')
+        results.body.result[0].homeworkName.should.equal('1')
+        results.body.result[0].homeworkName.should.equal('txt')
+        results.body.result[0].homeworkName.should.equal('this is hw1')
+        results.body.result[0].homeworkName.should.equal('false')
+        done();
+			});
+  })
+})

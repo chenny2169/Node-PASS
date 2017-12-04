@@ -53,22 +53,7 @@ router.post('/addHW', function(req, res, next){
 })
 
 /* POST Edit homework. */
-router.post('/editHW', function(req, res){
-
-    HW.update({_id : req.query.homework_uuid}, {$set:
-        {
-            homeworkName : req.body.homeworkName,
-            dueDate : req.body.dueDate, 
-            percentage : req.body.percentage, 
-            fileExtension : req.body.fileExtension, 
-            homeworkDescription : req.body.homeworkDescription,
-            dueDateExtension : req.body.dueDateExtension
-        }
-    }).then(function(result){
-        console.log(result)
-        res.redirect('/hw/'+req.body.courseName)    
-    })
-})
+router.post('/editHW', controller.editSpecificCouresHwInfos)
 
 
 module.exports = router;

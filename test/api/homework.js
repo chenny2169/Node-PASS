@@ -144,8 +144,8 @@ describe('edit for homework infos', function() {
           "dueDate" : "1211",
           "percentage" : "10",
           "fileExtension" : "txt", 
-          "homeworkDescription" : "THIS IS HW1",
-           "dueDateExtension": "false"
+          "homeworkDescription" : "this is hw1",
+          "dueDateExtension": "false"
         }
       ]);
 
@@ -165,11 +165,11 @@ describe('edit for homework infos', function() {
         homeworkMock.restore()
         
         results.body.result[0].homeworkName.should.equal('6')
-        results.body.result[0].homeworkName.should.equal('1211')
-        results.body.result[0].homeworkName.should.equal('1')
-        results.body.result[0].homeworkName.should.equal('txt')
-        results.body.result[0].homeworkName.should.equal('this is hw1')
-        results.body.result[0].homeworkName.should.equal('false')
+        results.body.result[0].dueDate.should.equal('1211')
+        results.body.result[0].percentage.should.equal('10')
+        results.body.result[0].fileExtension.should.equal('txt')
+        results.body.result[0].homeworkDescription.should.equal('this is hw1')
+        results.body.result[0].dueDateExtension.should.equal('false')
         done();
 			});
   })

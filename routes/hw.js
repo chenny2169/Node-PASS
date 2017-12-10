@@ -3,7 +3,7 @@ var router = express.Router();
 const HW = require('../models/homework')
 const GradeDB = require('../models/grades')
 const studentDB = require('../models/student')
-
+var controller = require('../controllers/homeworkController');
 
 
 router.get('/edit/:_id', function(req, res){
@@ -28,13 +28,7 @@ router.get('/delete/:_id', function(req, res){
 
 
 /* GET homework home page. */
-router.get('/:courseName', function(req, res) {
-    HW.find({"courseName":req.params.courseName}).then(function(result){
-        console.log(result)
-        res.render('hw', { title:'Homework' , result :result })
-    })
-});
-
+router.get('/:courseName', controller.showSpecificCourseHw)
 
 
 /* POST Add homework. */
@@ -59,22 +53,7 @@ router.post('/addHW', function(req, res, next){
 })
 
 /* POST Edit homework. */
-router.post('/editHW', function(req, res){
-
-    HW.update({_id : req.query.homework_uuid}, {$set:
-        {
-            homeworkName : req.body.homeworkName,
-            dueDate : req.body.dueDate, 
-            percentage : req.body.percentage, 
-            fileExtension : req.body.fileExtension, 
-            homeworkDescription : req.body.homeworkDescription,
-            dueDateExtension : req.body.dueDateExtension
-        }
-    }).then(function(result){
-        console.log(result)
-        res.redirect('/hw/'+req.body.courseName)    
-    })
-})
+router.post('/editHW', controller.editSpecificCouresHwInfos)
 
 
 module.exports = router;

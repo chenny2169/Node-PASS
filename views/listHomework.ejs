@@ -14,8 +14,9 @@
                         <th>上傳情形</th>
                         <th>繳交期限</th>
                         <th>繳交時間</th>
-                        <th>作業成績</th>       
-                        <th>上傳</th>                                   
+                        <th>作業成績</th>   
+                        <th>逾時補交</th>    
+                        <th>上傳</th>   
                     </tr>
                 </thead>   
                 <tbody>
@@ -26,6 +27,7 @@
                         <td><%= result.homeworks[i].dueDate %></td>
                         <td><%= result.grades[i].submitTime %></td>
                         <td><%= result.grades[i].homeworkGrade %></td>
+                        <td><%= result.homeworks[i].dueDateExtension ? "可以補交" : "不可補交" %></td>
                         <td><a class="btn btn-info" href="/listHomework/uploadHomework?homework_uuid=<%= result.homeworks[i]._id %>&studentID=<%= result.studentID %>" >上傳作業</a></td>                                       
                     </tr>
                     <% } %>             

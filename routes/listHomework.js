@@ -6,6 +6,8 @@ const HW = require('../models/homework')
 const GradeDB = require('../models/grades')
 const studentDB = require('../models/student')
 
+
+
 router.get('/', function(req, res){
   let result = {
     studentID : req.query.studentID,
@@ -39,35 +41,54 @@ router.get('/uploadHomework', function(req, res){
       homework :[]
   }
   HW.find({"_id":req.query.homework_uuid}).then(function(homework){
-      console.log(result)
-      result.homework = homework
+    let canUpload = (homework[0].dueDateExtension == true) || !(overDeadline(homework[0].dueDate))
+    result.homework = homework
+    result.homework["canUpload"] = canUpload
+    console.log(result)
+    if(!canUpload){
+      req.flash('msg','上傳截止');
+      res.locals.messages = req.flash();
+    }
       res.render('uploadHomework', { title: homework[0].courseName+' '
           +homework[0].homeworkName+' 上傳作業區' , result :result });
   })
 })
 
 router.post('/upload', function(req, res){
-  // console.log(req.files.uploadFile.name)
-  if (req.files.uploadFile == undefined)
-    return res.status(500).send('No files were uploaded.');
-  else {
-    let uploadFile = req.files.uploadFile;
-    // Use the mv() method to place the file somewhere on your server
-    uploadFile.mv('homeworkCollection/'+uploadFile.name, function(err) {
-      if (err)
-        return res.status(500).send(err);
+  HW.find({"_id": req.query.homework_uuid}).then(function(homework){
 
-      
-      GradeDB.update({"homework_uuid":req.query.homework_uuid, "studentID" :req.query.studentID},
-      {$set:{submitTime : upload()}, homeworkState : '已繳交'}).then(function() {
-  
-        HW.find({"_id":req.query.homework_uuid}).then(function(result){
-          // console.log(result)
-          res.redirect('/listHomework?courseName='+result[0].courseName+'&studentID='+req.query.studentID)
+    if(homework[0].dueDateExtension == false && overDeadline(homework[0].dueDate)){ //過期，而且不能補交
+
+      console.log('過期了，而且不能補交')
+      res.redirect('/listHomework?courseName='+homework[0].courseName+'&studentID='+req.query.studentID)
+    }
+    else { // 可以補交
+      if (req.files.uploadFile == undefined)
+        return res.status(500).send('No files were uploaded.');
+      else {
+        let uploadFile = req.files.uploadFile;
+        // Use the mv() method to place the file somewhere on your server
+        uploadFile.mv('homeworkCollection/'+uploadFile.name, function(err) {
+          if (err)
+            return res.status(500).send(err);
+    
+          
+          GradeDB.update({"homework_uuid":req.query.homework_uuid, "studentID" :req.query.studentID},
+          {$set:{submitTime : upload(req.query.homework_uuid)}, homeworkState : '已繳交'}).then(function() {
+            // console.log(result)
+            res.redirect('/listHomework?courseName='+homework[0].courseName+'&studentID='+req.query.studentID)
+            
+          })
         })
-      })
-    })
-  }
+      }
+
+    }
+
+
+  })
+
+
+ 
 })
 
 router.get('/download', function(req, res){
@@ -75,14 +96,27 @@ router.get('/download', function(req, res){
     console.log(result)
     homeworkName=result[0].homeworkName
     fileExtension=result[0].fileExtension
-    // res.download("homeworkCollection/"+req.query.studentID+"_"+homeworkName+"."+fileExtension)
     res.download("homeworkCollection/"+req.query.studentID+"_"+homeworkName+"."+fileExtension)
     
   })
 })
 
-function upload() {   
+function upload(homework_uuid) {   
 
   return moment().format('YYYY/MM/DD,  H:mm:ss ')
 }
+
+function overDeadline(dueDate) {
+    let check  = Date.now();
+    let deadline = new Date(dueDate)
+  
+    if(check > deadline) //過期
+      return true
+    
+    else //還沒到
+      return false
+   
+  
+}
+
 module.exports = router;

@@ -12,6 +12,19 @@
 <div class="container">
     <div class="colum">
         <div class="span5 " >
+            <% if (locals.messages) { %>
+            <div class="alert alert-danger" id=danger-alert>
+                <button type=button class=close data-dismiss=alert>x</button>
+                <strong><%= messages.msg %></strong>
+            </div>
+            <% } %>
+            <script>
+                $('#danger-alert').fadeTo(2000, 500).slideUp(500, function(){
+                    $('#danger-alert').alert('close');
+                  }); 
+            </script>
+
+
             <table class="table" >
                 <tr>
                     <th >作業名稱</th>
@@ -28,7 +41,15 @@
                 <tr>
                     <th>比重</th>
                     <td><%= result.homework[0].percentage %></td>
-                </tr>                        
+                </tr> 
+                <tr>
+                    <th>逾時補交</th>
+                    <td><%= result.homework[0].dueDateExtension ? "可以補交" : "不可補交" %></td>
+                </tr>
+                <tr>
+                    <th>作業描述</th>
+                    <td><%= result.homework[0].homeworkDescription %></td>
+                </tr>                       
             </table>
             <form action="/listHomework/upload?homework_uuid=<%= result.homework[0]._id %>&studentID=<%= result.studentID %>" method="POST" align="center" enctype="multipart/form-data">
         
@@ -41,9 +62,9 @@
                 </label><br>
                 <a align="center" class="btn btn-info" href="/listHomework/download?homework_uuid=<%= result.homework[0]._id %>&studentID=<%= result.studentID %>">下載</a>
                 
-
-            
-                <input type="submit" class="btn btn-info" value="確定上傳">
+                
+                <% let disabled = result.homework.canUpload ? "" : "disabled" %>
+                <input type="submit" class="btn btn-info" <%= disabled %>  value="確定上傳">
                 <span style="width:100px">&nbsp;&nbsp;</span>
                 <input type="reset" class="btn btn-default" value="取消">
             </form> 
@@ -52,5 +73,6 @@
 </div>
     
 </div>
+
 
 <% include footer.ejs %>

@@ -10,6 +10,12 @@ const StudentSchema = new Schema({
     },
     courseID:{
         type : [String]
+    },
+    role:{
+        type : String
+    },
+    password:{
+        type : String
     }
 })
 

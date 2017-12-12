@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <head>
   <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
-  <title>login page</title>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <title>login page</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
@@ -10,34 +11,46 @@
       background-size: cover;
     }
     .vertical-offset-100{
-        padding-top:100px;
+        padding-top:0;
     }
   </style>
 </head>
 <div class="container">
     <div class="row vertical-offset-100">
-    		<div class="panel panel-default" style="width: 602px; height: 452px; margin-left: 25%;margin-top: 10%;">
-			  	<div class="panel-heading">
-			    	<h3 class="panel-title"><img src="images/PASS-logo.png" style="width: 150px"></h3>
-			 	</div>
-			  	<div class="panel-body">
-			    	<form accept-charset="UTF-8" role="form">
-              <fieldset>
-			    	  	<div class="form-group">
-			    		    <input class="form-control" placeholder="E-mail" name="email" type="text" style="margin-top: 20px;margin-bottom: 20px;height: 54px">
-			    		</div>
-			    		<div class="form-group">
-			    			<input class="form-control" placeholder="Password" name="password" type="password" value="" style="margin-top: 20px;margin-bottom: 20px;height: 54px">
-			    		</div>
-			    		<div class="checkbox" >
-			    	    	<label>
-			    	    		<input name="remember" type="checkbox" value=""> Remember Me
-			    	    	</label>
-			    	    </div>
-			    		<input class="btn btn-lg btn-success btn-block" type="submit" value="Login" style="margin-top: 60px">
-			    	</fieldset>
-			      	</form>
-			    </div>
-		</div>
+        <div class="panel panel-default" style="width: 602px; height: 452px; margin-left: 25%;margin-top: 10%;">
+            <div class="panel-heading">
+                <h3 class="panel-title"> <a href="/"><img src="images/PASS-logo.png" style="width: 150px"></a></h3>
+            </div>
+            <div class="panel-body">
+
+            <% if (locals.messages) { %>
+            <div class="alert alert-danger" id="danger-alert">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong><%= messages.msg %></strong>
+            <% } %>
+        </div>
+        <script>
+            $('#danger-alert').fadeTo(2000, 500).slideUp(500, function(){
+                $('#danger-alert').alert('close');
+                }); 
+        </script>
+        <form accept-charset="UTF-8" role="form" action="/login" method="post">
+            <fieldset>
+                <div class="form-group">
+                    <input class="form-control" placeholder="studentID" name="studentID" type="text" style="margin-top: 20px;margin-bottom: 20px;height: 54px">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" placeholder="Password" name="password" type="password" value="" style="margin-top: 20px;margin-bottom: 20px;height: 54px">
+                </div>
+                <div class="checkbox" >
+                    <label>
+                        <input name="remember" type="checkbox" value=""> Remember Me
+                    </label>
+                </div>
+                <input class="btn btn-lg btn-success btn-block" type="submit" value="Login" style="margin-top: 40px">
+                <input class="btn btn-lg btn-danger btn-block" type="button" value="Home Page" onclick="location.href='/';" style="margin-top: 10px" ></input>
+            
+            </fieldset>
+        </form>
 	</div>
 </div>

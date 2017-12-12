@@ -20,7 +20,7 @@ router.get('/:studentID', function(req, res){
   }).then(function(courseID){
       CourseDB.find({'courseID':courseID}).then(function(courseInfo){
         result.course = courseInfo
-        console.log(courseInfo)
+        console.log(result)
         res.render('listCourse',{title: req.params.studentID+'學生作業繳交區',result:result})
       })
   })

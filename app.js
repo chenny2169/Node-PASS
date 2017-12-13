@@ -49,16 +49,28 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
 
 
+let authForTeacher = function(req, res, next) {
+  if (req.session && req.session.isLogin == true && req.session.result[0].role=="teacher")
+    return next();
+  else
+    return res.status(401).send('Unauthorized');
+};
+
+let authForStudent = function(req, res, next) {
+  if (req.session && req.session.isLogin == true && req.session.result[0].role=="student")
+    return next();
+  else
+    return res.status(401).send('Unauthorized');
+};
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/hw',hw)
-app.use('/course',course)
-app.use('/markHomework',markHomework)
-app.use('/gradesReport',gradesReport)
-app.use('/listCourse',listCourse)
-app.use('/listHomework',listHomework)
-
+app.use('/hw', authForTeacher, hw)
+app.use('/course', authForTeacher, course)
+app.use('/markHomework', authForTeacher, markHomework)
+app.use('/gradesReport', authForTeacher, gradesReport)
+app.use('/listCourse', authForStudent, listCourse)
+app.use('/listHomework', authForStudent, listHomework)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

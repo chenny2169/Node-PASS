@@ -3,13 +3,13 @@
 
 <div class="w3-top">
   <div class="w3-bar w3-white w3-card" id="myNavbar" style="height: 60px">
-    <a href="#home" class="w3-bar-item w3-button w3-wide" style="padding-top: 0px; padding-left: 0px;"><img src="images/PASS-logo.png" style="width: 150px"></a>
+    <a href="#home" id="PASS" class="w3-bar-item w3-button w3-wide" style="padding-top: 0px; padding-left: 0px;"><img src="images/PASS-logo.png" style="width: 150px"></a>
     <!-- Right-sided navbar links -->
     <div class="w3-right w3-hide-small">
       <a href="#about" class="w3-bar-item w3-button"><i class="fa fa-th"></i>ABOUT</a>
       <a href="#team" class="w3-bar-item w3-button"><i class="fa fa-users"></i>TEAM</a>
-      <a href="/content" class="w3-bar-item w3-button"><i class="fa fa-user"></i><%= result[0].studentName %></a>
-      <a href="/logout" class="w3-bar-item w3-button"><i class="fa fa-sign-in"></i>Log Out</a>
+      <a href="/content" id="userContent" class="w3-bar-item w3-button"><i class="fa fa-user"></i><%= result[0].studentName %></a>
+      <a href="/logout" id="logout" class="w3-bar-item w3-button"><i class="fa fa-sign-in"></i>Log Out</a>
     </div>
 
     <!-- Hide right-floated links on small screens and replace them with a menu icon -->
@@ -24,6 +24,6 @@
   <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
   <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">ABOUT</a>
   <a href="#team" onclick="w3_close()" class="w3-bar-item w3-button">TEAM</a>
-  <a href="/content" onclick="w3_close()" class="w3-bar-item w3-button"><%= result[0].studentName %></a>
-  <a href="/logout" onclick="w3_close()" class="w3-bar-item w3-button">Logout</a>
+  <a href="/content" id="userContent" onclick="w3_close()" class="w3-bar-item w3-button"><%= result[0].studentName %></a>
+  <a href="/logout" id="logout" onclick="w3_close()" class="w3-bar-item w3-button">Logout</a>
 </nav>

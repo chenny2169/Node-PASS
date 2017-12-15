@@ -15,13 +15,13 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="/">PASS</a>
+      <a class="navbar-brand" href="/" id="PASS">PASS</a>
     </div>
     <ul class="nav navbar-nav">
-      <li><a href="/listCourse/<%= result.studentID %>"><i class="fa fa-tags"></i>Online Classroom</a></li>
+      <li><a href="/listCourse/<%= result.studentID %>" id="onlineClassroom"><i class="fa fa-tags"></i>Online Classroom</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="/logout" title="LogOut"><i class="fa fa-sign-out fa-lg"></i>LogOut</a></li>
+      <li><a href="/logout" id="logout" title="LogOut"><i class="fa fa-sign-out fa-lg"></i>LogOut</a></li>
     </ul>
   </div>
 </nav>

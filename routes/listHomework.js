@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const moment = require('moment');
+const fs = require('fs'); 
 const CourseDB = require('../models/courses')
 const HW = require('../models/homework')
 const GradeDB = require('../models/grades')
@@ -62,8 +63,8 @@ router.post('/upload', function(req, res){
       console.log('過期了，而且不能補交')
       res.redirect('/listHomework?courseName='+homework[0].courseName+'&studentID='+req.query.studentID)
     }
-    else { // 可以補交
-      if (req.files.uploadFile == undefined)
+    else { // 可以補交 || 沒有過期
+      if (req.files.uploadFile == undefined )
         return res.status(500).send('No files were uploaded.');
       else {
         let uploadFile = req.files.uploadFile;
@@ -76,7 +77,7 @@ router.post('/upload', function(req, res){
           GradeDB.update({"homework_uuid":req.query.homework_uuid, "studentID" :req.query.studentID},
           {$set:{submitTime : upload(req.query.homework_uuid)}, homeworkState : '已繳交'}).then(function() {
             // console.log(result)
-            res.redirect('/listHomework?courseName='+homework[0].courseName+'&studentID='+req.query.studentID)
+            res.render('/listHomework?courseName='+homework[0].courseName+'&studentID='+req.query.studentID)
             
           })
         })
@@ -92,11 +93,27 @@ router.post('/upload', function(req, res){
 })
 
 router.get('/download', function(req, res){
-  HW.find({"_id" : req.query.homework_uuid}).then(function(result){
-    console.log(result)
-    homeworkName=result[0].homeworkName
-    fileExtension=result[0].fileExtension
-    res.download("homeworkCollection/"+req.query.studentID+"_"+homeworkName+"."+fileExtension)
+  let result = {
+    studentID :  req.query.studentID,
+    homework :[]
+  }
+  HW.find({"_id" : req.query.homework_uuid}).then(function(homework){
+    result.homework = homework
+    let homeworkName = homework[0].homeworkName
+    let fileExtension = homework[0].fileExtension
+    let filePath = 'homeworkCollection/'+req.query.studentID+"_"+homeworkName+"."+fileExtension
+    fs.exists(filePath, function(exists) { 
+      if (exists) { 
+        res.download(filePath)
+      } 
+      else {
+        req.flash('msg','沒有上傳檔案');
+        res.locals.messages = req.flash();
+        console.log(result)
+        res.render('uploadHomework',  { title: homework[0].courseName+' '
+          +homework[0].homeworkName+' 上傳作業區' , result :result })
+      }
+    }); 
     
   })
 })

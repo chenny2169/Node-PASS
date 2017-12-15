@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "prestart": "start mongod",
     "start": "node ./bin/www",
     "api-test": "nyc --reporter=cobertura mocha test/api/*.js"
   },

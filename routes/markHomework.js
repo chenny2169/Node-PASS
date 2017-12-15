@@ -38,8 +38,9 @@ router.get('/person/download', function(req, res){
   console.log(req.query.homework_uuid)
   HW.find({"_id" : req.query.homework_uuid}).then(function(result){
     console.log(result)
-    homeworkName=result[0].homeworkName
-    res.download("homeworkCollection/"+req.query.studentID+"_"+homeworkName+".txt")
+    let homeworkName=result[0].homeworkName
+    let fileExtension=result[0].fileExtension
+    res.download("homeworkCollection/"+req.query.studentID+"_"+homeworkName+"."+fileExtension)
   })
 })
 

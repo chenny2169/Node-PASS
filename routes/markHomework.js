@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+const fs = require('fs'); 
+
 const GradesDB = require('../models/grades')
 const HW = require('../models/homework')
 
@@ -36,11 +38,31 @@ router.post('/person/updateGrade', function(req, res){
 router.get('/person/download', function(req, res){
   let homeworkName;
   console.log(req.query.homework_uuid)
-  HW.find({"_id" : req.query.homework_uuid}).then(function(result){
-    console.log(result)
-    let homeworkName=result[0].homeworkName
-    let fileExtension=result[0].fileExtension
-    res.download("homeworkCollection/"+req.query.studentID+"_"+homeworkName+"."+fileExtension)
+  HW.find({"_id" : req.query.homework_uuid}).then(function(homework){
+    console.log(homework)
+    return homework
+    // res.download("homeworkCollection/"+req.query.studentID+"_"+homeworkName+"."+fileExtension)
+  }).then(function(homework) {
+    let homeworkName=homework[0].homeworkName
+    let fileExtension=homework[0].fileExtension
+    let filePath = 'homeworkCollection/'+req.query.studentID+'_'+homeworkName+'.'+fileExtension
+    fs.exists(filePath, function(exists) { 
+      if (exists) { 
+        res.download(filePath)
+        return
+      } 
+      else {
+        req.flash('msg','沒有上傳檔案');
+        res.locals.messages = req.flash();
+        GradesDB.find({"studentID":req.query.studentID, "homework_uuid":req.query.homework_uuid})
+        .then(function(result){
+          console.log(result)
+          
+          res.render('markPersonHomework',{title : '作業狀態', result : result})   
+        })
+      }
+    });
+
   })
 })
 

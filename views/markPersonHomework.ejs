@@ -5,6 +5,17 @@
 </div>
    <div class="container">
         <div class="row">
+            <% if (locals.messages) { %>
+            <div class="alert alert-danger" id=danger-alert>
+                <button type=button class=close data-dismiss=alert>x</button>
+                <strong><%= messages.msg %></strong>
+            </div>
+            <% } %>
+            <script>
+                $('#danger-alert').fadeTo(2000, 500).slideUp(500, function(){
+                    $('#danger-alert').alert('close');
+                    }); 
+            </script>
             <form action="/markHomework/person/updateGrade?studentID=<%= result[0].studentID %>&homework_uuid=<%= result[0].homework_uuid %>" method="POST">
                 <table class="table table-striped table-condensed">
                     <thead>

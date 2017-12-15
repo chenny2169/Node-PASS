@@ -101,7 +101,7 @@ router.get('/download', function(req, res){
     result.homework = homework
     let homeworkName = homework[0].homeworkName
     let fileExtension = homework[0].fileExtension
-    let filePath = 'homeworkCollection/'+req.query.studentID+"_"+homeworkName+"."+fileExtension
+    let filePath = 'homeworkCollection/'+req.query.studentID+'_'+homeworkName+'.'+fileExtension
     fs.exists(filePath, function(exists) { 
       if (exists) { 
         res.download(filePath)
@@ -113,7 +113,7 @@ router.get('/download', function(req, res){
         res.render('uploadHomework',  { title: homework[0].courseName+' '
           +homework[0].homeworkName+' 上傳作業區' , result :result })
       }
-    }); 
+    })
     
   })
 })

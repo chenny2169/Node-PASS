@@ -34,7 +34,7 @@ router.get('/:courseName', controller.showSpecificCourseHw)
 /* POST Add homework. */
 router.post('/addHW', function(req, res, next){
     HW.create(req.body).then(function(homework){
-        studentDB.find({}).then(function(students) {
+        studentDB.find({role:'student'}).then(function(students) {
             students.forEach(function(student) {
                 let grade = {
                     studentID:student.studentID,

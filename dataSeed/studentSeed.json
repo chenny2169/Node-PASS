@@ -1,0 +1,52 @@
+
+{
+    "studentID" : "105598001",
+    "studentName" : "David Liu",
+    "courseID" : [ 
+        "091M40F", 
+        "fhjklF"
+    ],
+    "role" : "teacher",
+    "password" : "1209"
+}
+
+{
+    "studentID" : "105598002",
+    "studentName" : "Leo Liu",
+    "courseID" : [ 
+        "091M40F", 
+        "fhjklF"
+    ],
+    "role" : "student",
+    "password" : "1209"
+}
+{
+    "studentID" : "105598003",
+    "studentName" : "Jack Liu",
+    "courseID" : [ 
+        "091M40F", 
+        "fhjklF"
+    ],
+    "role" : "student",
+    "password" : "1209"
+}
+{
+    "studentID" : "105598004",
+    "studentName" : "Micky Liu",
+    "courseID" : [ 
+        "091M40F", 
+        "fhjklF"
+    ],
+    "role" : "student",
+    "password" : "1209"
+}
+{
+    "studentID" : "105598005",
+    "studentName" : "Lily Liu",
+    "courseID" : [ 
+        "091M40F", 
+        "fhjklF"
+    ],
+    "role" : "student",
+    "password" : "1209"
+}

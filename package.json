@@ -5,7 +5,8 @@
   "scripts": {
     "prestart": "start mongod",
     "start": "node ./bin/www",
-    "api-test": "nyc --reporter=cobertura mocha test/api/*.js"
+    "api-test": "nyc --reporter=cobertura mocha test/api/*.js",
+    "initdb" : "mongoimport --drop -d hwgo1 -c coursescollections dataSeed/courseSeed.json && mongoimport --drop -d hwgo1 -c studentcollections dataSeed/studentSeed.json"
   },
   "dependencies": {
     "body-parser": "~1.17.1",

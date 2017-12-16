@@ -52,15 +52,23 @@ app.use(fileUpload());
 let authForTeacher = function(req, res, next) {
   if (req.session && req.session.isLogin == true && req.session.result[0].role=="teacher")
     return next();
-  else
-    return res.status(401).send('Unauthorized');
+  else{
+    req.flash('msg','權限不足，請重新登入');
+    res.locals.messages = req.flash();
+    res.render('login')
+  }
+    // return res.status(401).send('Unauthorized');
 };
 
 let authForStudent = function(req, res, next) {
   if (req.session && req.session.isLogin == true && req.session.result[0].role=="student")
     return next();
-  else
-    return res.status(401).send('Unauthorized');
+  else{
+    req.flash('msg','權限不足，請重新登入');
+    res.locals.messages = req.flash();
+    res.render('login')
+  }
+    // return res.status(401).send('Unauthorized');
 };
 
 app.use('/', index);

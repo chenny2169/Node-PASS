@@ -25,7 +25,7 @@
                         <td><%= result.course[i].courseName %></td>
                         <td><%= result.course[i].classroom %></td>
                         <td><%= result.course[i].instructor %></td>
-                        <td><a class="btn btn-info" href="/listHomework?courseName=<%= result.course[i].courseName %>&studentID=<%= result.studentID %>">進入</a></td>                                       
+                        <td><a class="btn btn-info" id = "enter<%= result.course[i].courseName %>" href="/listHomework?courseName=<%= result.course[i].courseName %>&studentID=<%= result.studentID %>">進入</a></td>                                       
                     </tr>
                     <% } %>           
                 </tbody>

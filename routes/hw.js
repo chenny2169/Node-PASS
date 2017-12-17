@@ -40,7 +40,8 @@ router.post('/addHW', function(req, res, next){
                     studentID:student.studentID,
                     studentName:student.studentName,
                     submitTime:'',
-                    homework_uuid:homework._id.toString()
+                    homework_uuid:homework._id.toString(),
+                    homeworkName:homework.homeworkName
                 }
                 GradeDB.create(grade).then(function(result) {
                     console.log(result)

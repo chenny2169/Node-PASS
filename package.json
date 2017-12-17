@@ -6,7 +6,7 @@
     "prestart": "start mongod",
     "start": "node ./bin/www",
     "api-test": "nyc --reporter=cobertura mocha test/api/*.js",
-    "initdb" : "start mongod && mongoimport --drop -d hwgo -c coursescollections dataSeed/courseSeed.json && mongoimport --drop -d hwgo -c studentcollections dataSeed/studentSeed.json"
+    "initdb": "start mongod  && mongo hwgo --eval db.dropDatabase() && mongoimport -d hwgo -c coursescollections dataSeed/courseSeed.json && mongoimport  -d hwgo -c studentcollections dataSeed/studentSeed.json"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
@@ -25,6 +25,8 @@
     "morgan": "~1.8.1",
     "nodemon": "^1.12.1",
     "nyc": "^11.3.0",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
     "serve-favicon": "~2.4.2",
     "should": "^13.1.3",
     "sinon": "^4.1.2",

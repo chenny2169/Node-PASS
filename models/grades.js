@@ -21,6 +21,9 @@ const GradeSchema = new Schema({
     homeworkState:{
         type : String,
         default : '未繳交'
+    },
+    homeworkName:{
+        type : String 
     }
 })
 

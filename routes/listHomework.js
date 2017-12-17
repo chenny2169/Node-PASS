@@ -67,17 +67,16 @@ router.post('/upload', function(req, res){
       if (req.files.uploadFile == undefined )
         return res.status(500).send('No files were uploaded.');
       else {
+        
         let uploadFile = req.files.uploadFile;
         // Use the mv() method to place the file somewhere on your server
         uploadFile.mv('homeworkCollection/'+uploadFile.name, function(err) {
           if (err)
             return res.status(500).send(err);
-    
-          
           GradeDB.update({"homework_uuid":req.query.homework_uuid, "studentID" :req.query.studentID},
-          {$set:{submitTime : upload(req.query.homework_uuid)}, homeworkState : '已繳交'}).then(function() {
+          {$set:{submitTime : upload(req.query.homework_uuid)}, homeworkState : '已繳交'}).then(function(result) {
             // console.log(result)
-            res.render('/listHomework?courseName='+homework[0].courseName+'&studentID='+req.query.studentID)
+            res.redirect('/listHomework?courseName='+homework[0].courseName+'&studentID='+req.query.studentID)
             
           })
         })

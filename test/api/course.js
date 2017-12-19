@@ -8,17 +8,29 @@ require('sinon-mongoose');
 require('../../models/courses');
 
 describe('List courseInfo', function () {
+  let authenticatedSession;
 
-   beforeEach(function (done) {
+  beforeEach(function (done) {
     agent.post('/login')
       .send({ studentID: '105598001', password: '1209' })
       .expect(302)
-      .end(function (err) {
+      .end(function (err, res) {
         if (err) return done(err);
         authenticatedSession = agent;
-        return done();
+        done();
       });
   });
+
+  afterEach(function (done) { 
+    agent.get('/logout')
+          .send()
+          .expect(302)
+          .end(function (err, res) {
+            if (err) return done(err);
+            done();
+          });  
+  });
+
 
   it('should show one course if there is only one course in CourseDB', function (done) {
     var course = mongoose.model('coursesCollection');
@@ -36,7 +48,7 @@ describe('List courseInfo', function () {
           "__v" : 0
       }]);
 
-    agent
+    authenticatedSession
 			.get('/course')
 			.set('Content-Type', 'application/json')
 			.end(function(err, results){
@@ -75,7 +87,7 @@ describe('List courseInfo', function () {
         }
       ]);
 
-    agent
+    authenticatedSession
 			.get('/course')
 			.set('Content-Type', 'application/json')
 			.end(function(err, results){
@@ -89,6 +101,7 @@ describe('List courseInfo', function () {
         results.body.result[1].classroom.should.equal('1234');
 				done();
 			});
+
   });
-    
+
 });

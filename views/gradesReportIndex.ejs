@@ -49,6 +49,7 @@ function myFunction(sel) {
     if(document.getElementsByTagName('select')[i].getAttribute('id')!=sel.id)
        document.getElementById("selectedHomework"+i).value="0"
   }
+  document.getElementById("SubmitBtn").href = '/gradesReport/generate?'+changeValue;
 }
 
 

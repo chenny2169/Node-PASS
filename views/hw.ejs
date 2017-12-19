@@ -70,12 +70,12 @@
           </div>
           <div class="form-group">
             <label for="homeworkName">作業名稱</label>
-            <input class="form-control" name="homeworkName" id="InputhomeworkName" placeholder="第幾次作業" required>
+            <input class="form-control" name="homeworkName" id="InputhomeworkName" oninvalid="setCustomValidity();" placeholder="第幾次作業" required>
           </div>
           <div class="form-group">
           <label for="dueDate">繳交期限</label>
             <div class="input-group date" id="datetimepicker1">
-                <input type="text" class="form-control" name="dueDate" id="InputDueDateInAddHW"/ required>
+                <input type="text" class="form-control" name="dueDate" id="InputDueDateInAddHW" oninvalid="setCustomValidity();" / required>
                 <span id="calendarInAddHW" class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                 </span>
@@ -83,15 +83,15 @@
           </div>
           <div class="form-group">
             <label for="hwPercentage">比重</label>
-            <input  class="form-control" name="percentage" id="InputhwPercentage" placeholder="作業比重%" required>
+            <input  class="form-control" name="percentage" id="InputhwPercentage" oninvalid="setCustomValidity();" placeholder="作業比重%"  required>
           </div>
           <div class="form-group">
               <label for="hwFileExtension">附屬檔名</label>
-              <input  class="form-control" name="fileExtension" id="InputhwFileExtension" placeholder="附屬檔名" required>
+              <input  class="form-control" name="fileExtension" id="InputhwFileExtension" oninvalid="setCustomValidity();" placeholder="附屬檔名" required>
           </div>
           <div class="form-group">
             <label for="hwDescription">作業描述</label></br>
-            <textarea rows="3" cols="50" name="homeworkDescription" id="InputhwHomeworkDescription" required></textarea>
+            <textarea rows="3" cols="50" name="homeworkDescription" id="InputhwHomeworkDescription" oninvalid="setCustomValidity();" required></textarea>
           </div>
           <div class="form-check">
             <label>

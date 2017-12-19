@@ -32,7 +32,7 @@
                             <td><%= result[0].studentID %></td>
                             <td><%= result[0].studentName %></td>
                             <td><%= result[0].submitTime %></td>
-                            <td><a class="btn btn-info" href="/markHomework/person/download?studentID=<%= result[0].studentID %>&homework_uuid=<%= result[0].homework_uuid %>" title="下載同學作業" >下載作業</a></td>
+                            <td><a class="btn btn-info" id="download_<%= result[0].studentID %>" href="/markHomework/person/download?studentID=<%= result[0].studentID %>&homework_uuid=<%= result[0].homework_uuid %>" title="下載同學作業" >下載作業</a></td>
                             <td><input type="text" id="grade" name="grade" oninvalid="setCustomValidity('數字格式錯誤');" pattern="^(?:[1-9]\d?|100)$" oninput="setCustomValidity('');" value="<%= result[0].homeworkGrade %>" required></td>
                         </tr>
                     </tbody>   

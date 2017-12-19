@@ -28,7 +28,7 @@
                         <td id="<%= result.homeworks[i].homeworkName %>4"><%= result.grades[i].submitTime %></td>
                         <td id="<%= result.homeworks[i].homeworkName %>5"><%= result.grades[i].homeworkGrade %></td>
                         <td ><%= result.homeworks[i].dueDateExtension ? "可以補交" : "不可補交" %></td>
-                        <td><a class="btn btn-info" id="uploadhomework<%= result.homeworks[i].homeworkName %>" href="/listHomework/uploadHomework?homework_uuid=<%= result.homeworks[i]._id %>&studentID=<%= result.studentID %>" >上傳作業</a></td>                                       
+                        <td><a class="btn btn-info" id="uploadhomework_<%= result.homeworks[i].homeworkName %>" href="/listHomework/uploadHomework?homework_uuid=<%= result.homeworks[i]._id %>&studentID=<%= result.studentID %>" >上傳作業</a></td>                                       
                     </tr>
                     <% } %>             
                 </tbody>

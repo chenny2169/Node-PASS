@@ -13,7 +13,7 @@
     <div class="colum">
         <div class="span5 " >
             <% if (locals.messages) { %>
-            <div class="alert alert-danger" id=danger-alert>
+            <div class="alert alert-danger" id="danger-alert">
                 <button type=button class=close data-dismiss=alert>x</button>
                 <strong><%= messages.msg %></strong>
             </div>
@@ -60,7 +60,7 @@
                     <span style="width:100px">&nbsp;&nbsp;</span>
                     
                 </label><br>
-                <a align="center" class="btn btn-info" href="/listHomework/download?homework_uuid=<%= result.homework[0]._id %>&studentID=<%= result.studentID %>">下載</a>
+                <a align="center" class="btn btn-info" id="download_<%= result.studentID %>" href="/listHomework/download?homework_uuid=<%= result.homework[0]._id %>&studentID=<%= result.studentID %>">下載</a>
                 
                 
                 <% let disabled = result.homework.canUpload ? "" : "disabled" %>

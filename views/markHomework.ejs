@@ -16,9 +16,9 @@
         <tbody>
             <% for(var i=0; i < result.length; i++) { %>
             <tr>
-                <td><%= result[i].studentID %></td>
+                <td id="<%= result[i].studentID %>" ><%= result[i].studentID %></td>
                 <td><%= result[i].studentName %></td>
-                <td id="grade_<%= result[i].studentID %>" ><%= result[i].homeworkGrade %></td>
+                <td><%= result[i].homeworkGrade %></td>
                 <td><%= result[i].submitTime %></td>
                 <td><a class="btn btn-info" id="toMark_<%= result[i].studentID %>" href="/markHomework/person/info/<%= result[i].studentID %>/<%= result[i].homework_uuid %>" title="<%= result[i].studentID %>">批改</a></td><!-- href到個人 -->
             </tr>

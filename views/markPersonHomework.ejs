@@ -6,7 +6,7 @@
    <div class="container">
         <div class="row">
             <% if (locals.messages) { %>
-            <div class="alert alert-danger" id=danger-alert>
+            <div class="alert alert-danger" id="danger-alert">
                 <button type=button class=close data-dismiss=alert>x</button>
                 <strong><%= messages.msg %></strong>
             </div>
@@ -33,7 +33,7 @@
                             <td><%= result[0].studentName %></td>
                             <td><%= result[0].submitTime %></td>
                             <td><a class="btn btn-info" href="/markHomework/person/download?studentID=<%= result[0].studentID %>&homework_uuid=<%= result[0].homework_uuid %>" title="下載同學作業" >下載作業</a></td>
-                            <td><input type="text" id="grade" name="grade" value="<%= result[0].homeworkGrade %>"></td>
+                            <td><input type="text" id="grade" name="grade" oninvalid="setCustomValidity('數字格式錯誤');" pattern="^(?:[1-9]\d?|100)$" oninput="setCustomValidity('');" value="<%= result[0].homeworkGrade %>" required></td>
                         </tr>
                     </tbody>   
                 </table><br>

@@ -10,6 +10,17 @@ require('../../models/homework');
 
 describe('show homework belong to specific course ', function () {
 
+  beforeEach(function (done) {
+    agent.post('/login')
+      .send({ studentID: '105598001', password: '1209' })
+      .expect(302)
+      .end(function (err) {
+        if (err) return done(err);
+        authenticatedSession = agent;
+        return done();
+      });
+  });
+
   it('should show one homework info if there is only one homework in HWDB ', function (done) {
     var homework = mongoose.model('hwCollection');
     var homeworkMock = sinon.mock(homework);

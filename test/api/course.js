@@ -9,6 +9,17 @@ require('../../models/courses');
 
 describe('List courseInfo', function () {
 
+   beforeEach(function (done) {
+    agent.post('/login')
+      .send({ studentID: '105598001', password: '1209' })
+      .expect(302)
+      .end(function (err) {
+        if (err) return done(err);
+        authenticatedSession = agent;
+        return done();
+      });
+  });
+
   it('should show one course if there is only one course in CourseDB', function (done) {
     var course = mongoose.model('coursesCollection');
     var courseMock = sinon.mock(course);

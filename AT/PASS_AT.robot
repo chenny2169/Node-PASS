@@ -1,4 +1,5 @@
 *** Settings ***
+Library           OperatingSystem
 Library           Selenium2Library
 
 *** Variables ***
@@ -38,7 +39,7 @@ ${homeworkName}    1234
     [Teardown]    close browser
 
 成功編輯作業(CMS-TC04)
-    [Setup]    addHW
+    [Setup]    老師新增作業並關閉
     teacherLogin
     Click Element    id=Software Engineering
     click element    id=edit_${homeworkName}
@@ -50,12 +51,12 @@ ${homeworkName}    1234
     element text should be    id=HW${homeworkName}_percentage    100%
     element text should be    id=HW${homeworkName}_fileExtension    txt
     element text should be    id=HW${homeworkName}_homeworkDescription    Description is changed!!!
-    element text should be     id=HW${homeworkName}_dueDateExtension    不可補交
+    element text should be    id=HW${homeworkName}_dueDateExtension    不可補交
     [Teardown]    Run Keywords    click element    id=delete_${homeworkName}
     ...    AND    close browser
 
 編輯作業但欄位為空(CMS-TC05)
-    [Setup]    addHW
+    [Setup]    老師新增作業並關閉
     teacherLogin
     Click Element    id=Software Engineering
     click element    id=edit_${homeworkName}
@@ -67,7 +68,7 @@ ${homeworkName}    1234
     click button    id=submitInEditHW
     ${testHomeworkName}=    Execute JavaScript    return window.document.getElementById("InputhomeworkName").getAttribute("oninvalid").split("'")[1]
     should be equal    ${testHomeworkName}    請填寫這個欄位
-    input text     name=homeworkName    ${homeworkName}
+    input text    name=homeworkName    ${homeworkName}
     ${testDueDate}=    Execute JavaScript    return window.document.getElementById("InputDueDate").getAttribute("oninvalid").split("'")[1]
     should be equal    ${testDueDate}    日期格式錯誤
     [Teardown]    Run Keywords    go back
@@ -75,7 +76,7 @@ ${homeworkName}    1234
     ...    AND    close browser
 
 成功刪除作業(CMS-TC06)
-    [Setup]    addHw
+    [Setup]    老師新增作業並關閉
     teacherLogin
     Click Element    id=Software Engineering
     click element    id=delete_${homeworkName}
@@ -86,6 +87,87 @@ ${homeworkName}    1234
     element should not be visible    id=HW${homeworkName}_homeworkDescription
     element should not be visible    id=HW${homeworkName}_dueDateExtension
     [Teardown]    close browser
+
+人工批改作業(CMS-TC07)
+    [Setup]    老師新增作業並關閉
+    teacherLogin
+    Click Element    id=Software Engineering
+    Click Element    id=${homeworkName}
+    Element Should be Visible    id = 105598005
+    Element Should be Visible    id = 105598004
+    Element Should be Visible    id = 105598003
+    Element Should be Visible    id = 105598002
+    Click Element    id = toMark_105598002
+    Input Text    id = grade    100
+    Click Button    id = markHw_105598002
+    ${grade}=    get text    id = grade_105598002
+    Should be equal    ${grade}    100
+    [Teardown]    run keywords    Close Browser    老師刪除作業並關閉
+
+人工批改作業但數字不為0~100的正整數(CMS-TC08)
+    [Setup]    老師新增作業並關閉
+    teacherLogin
+    Click Element    id=Software Engineering
+    Click Element    id=${homeworkName}
+    Element Should be Visible    id = 105598005
+    Element Should be Visible    id = 105598004
+    Element Should be Visible    id = 105598003
+    Element Should be Visible    id = 105598002
+    Click Element    id = toMark_105598002
+    Comment    open
+    Input Text    id = grade    -50
+    Click Button    id = markHw_105598002
+    ${grade}=    Execute JavaScript    return window.document.getElementById("grade").getAttribute("oninvalid").split("'")[1]
+    should be equal    ${grade}    數字格式錯誤
+    [Teardown]    run keywords    Close Browser    老師刪除作業並關閉
+
+學生下載作業(CMS-TC09)
+    [Setup]    run keywords    老師新增作業並關閉    學生上傳作業
+    studentLogin
+    Click Element    id=enterSoftware Engineering
+    Click Element    id=uploadhomework_${homeworkName}
+    Click Element    id = download_105598002
+    File Should Exist    C:\\Users\\jeni\\Downloads\\105598002_${homeworkName}.txt
+    [Teardown]    run keywords    Close Browser    刪除上傳的作業    老師刪除作業並關閉
+
+老師/TA下載作業(CMS-TC10)
+    [Setup]    run keywords    老師新增作業並關閉    學生上傳作業
+    teacherLogin
+    Click Element    id=Software Engineering
+    Click Element    id=${homeworkName}
+    Element Should be Visible    id = 105598005
+    Element Should be Visible    id = 105598004
+    Element Should be Visible    id = 105598003
+    Element Should be Visible    id = 105598002
+    Click Element    id = toMark_105598002
+    Click Element    id = download_105598002
+    File Should Exist    C:\\Users\\jeni\\Downloads\\105598002_${homeworkName}.txt
+    [Teardown]    run keywords    Close Browser    刪除上傳的作業    老師刪除作業並關閉
+
+學生下載未曾上傳的作業(CMS-TC11)
+    [Setup]    老師新增作業並關閉
+    studentLogin
+    Click Element    id = enterSoftware Engineering
+    Click Element    id = uploadhomework_${homeworkName}
+    Click Element    id = download_105598002
+    ${alert} =    get text    id = danger-alert
+    Should be equal    ${alert}    x\n沒有上傳檔案
+    [Teardown]    run keywords    Close Browser    老師刪除作業並關閉
+
+老師/TA下載學生未曾上傳作業(CMS-TC12)
+    [Setup]    老師新增作業並關閉
+    teacherLogin
+    Click Element    id=Software Engineering
+    Click Element    id=${homeworkName}
+    Element Should be Visible    id = 105598005
+    Element Should be Visible    id = 105598004
+    Element Should be Visible    id = 105598003
+    Element Should be Visible    id = 105598002
+    Click Element    id = toMark_105598002
+    Click Element    id = download_105598002
+    ${alert} =    get text    id = danger-alert
+    Should be equal    ${alert}    x\n沒有上傳檔案
+    [Teardown]    run keywords    Close Browser    老師刪除作業並關閉
 
 使用者登入成功(UAMS-TC01)
     [Setup]
@@ -137,9 +219,9 @@ ${homeworkName}    1234
     input text    name = studentID    105598002
     input password    name = password    1209
     click button    id = Login
-    Wait Until Element Is Visible    class \ = \ jumbotron    3s
-    Element Text Should Be    class \ = \ jumbotron    105598002學生作業繳交區
-    element Should Be Visible    id \ = onlineClassroom
+    Wait Until Element Is Visible    class = jumbotron    3s
+    Element Text Should Be    class = jumbotron    105598002學生作業繳交區
+    element Should Be Visible    id = onlineClassroom
     [Teardown]    close browser
 
 使用者登出成功(UAMS-TC05)
@@ -158,7 +240,7 @@ ${homeworkName}    1234
     [Teardown]    close browser
 
 老師/TA的產生作業成績報表功能(RGS-TC01)
-    [Setup]    addHW
+    [Setup]    老師新增作業並關閉
     teacherLogin
     click element    id = gradesReport
     click element    xpath = //*[@id="selectedHomework0"]/option[2]
@@ -168,16 +250,16 @@ ${homeworkName}    1234
     Element Should Be Visible    id = piechart
     ${reportHomeworkName}=    Get Text    id=${homeworkName} report
     Should Contain    ${reportHomeworkName}    ${selectedHomeworkName}
-    [Teardown]    Run Keywords    close browser    deleteHW
+    [Teardown]    Run Keywords    close browser    老師刪除作業並關閉
 
 老師/TA的產生作業成績報表功能時未選擇作業(RGS-TC02)
-    [Setup]    addHW
+    [Setup]    老師新增作業並關閉
     teacherLogin
     click element    id = gradesReport
     click element    id = SubmitBtn
     Wait Until Element Is Visible    id = danger-alert    3s
     Element Text Should Be    id = danger-alert    you have not choice
-    [Teardown]    Run Keywords    close browser    deleteHW
+    [Teardown]    Run Keywords    close browser    老師刪除作業並關閉
 
 *** Keywords ***
 teacherLogin
@@ -207,7 +289,7 @@ go to login page
     click element    id=signin
     wait until element is visible    id=Login    3s
 
-addHW
+老師新增作業並關閉
     teacherLogin
     click element    id=Software Engineering
     click element    id=createHW
@@ -221,8 +303,20 @@ addHW
     click button    id=addHw
     close browser
 
-deleteHW
+老師刪除作業並關閉
     teacherLogin
     Click Element    id=Software Engineering
     Click element    id = delete_${homeworkName}
     close browser
+
+學生上傳作業
+    studentLogin
+    Click Element    id=enterSoftware Engineering
+    Click Element    id=uploadhomework_${homeworkName}
+    Choose file    id=uploadFile    C:\\Users\\jeni\\Desktop\\105598002_${homeworkName}.txt
+    Click Element    id=oktoUpdate
+    close browser
+
+刪除上傳的作業
+    Remove File    C:\\Users\\jeni\\Desktop\\Node-PASS\\homeworkCollection\\105598002_${homeworkName}.txt
+    Remove File    C:\\Users\\jeni\\Downloads\\105598002_${hom3eworkName}.txt

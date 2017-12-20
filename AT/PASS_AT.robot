@@ -199,6 +199,25 @@ ${fileDownloadPath}    ~/downloads
     Element Should Not Be Visible    id = ${homeworkName}
     [Teardown]    Close browser
 
+上傳檔案為空(CMS-TC15)
+    [Setup]    run keywords    老師新增作業並關閉
+    Create File    ${fileUploadPath}/105598002_${homeworkName}.txt
+    studentLogin
+    element text should be    class =jumbotron    105598002學生作業繳交區
+    Click Element    id=enterSoftware Engineering
+    element text should be    class =jumbotron    105598002 Software Engineering作業區
+    element should contain    id=homeworkState_${homeworkName}    未繳交
+    ${uploadtime}    get text    id=submitTime_${homeworkName}
+    Should be equal    ${uploadtime}    ${EMPTY}
+    Click Element    id=uploadhomework_${homeworkName}
+    element text should be    class =jumbotron    Software Engineering Homework for upload test 上傳作業區
+    Click Element    id=oktoUpload
+    ${loadFile} =    Execute JavaScript    return window.document.getElementById("uploadFile").getAttribute('oninvalid').includes("請選擇檔案");
+    Should be true    ${loadFile}
+    [Teardown]    run keywords    Close browser
+    ...    AND    Remove File    ${fileUploadPath}/105598002_${homeworkName}.txt
+    ...    AND    老師刪除作業並關閉
+
 使用者登入成功(UAMS-TC01)
     [Setup]
     Open Browser    http://localhost:3000/    chrome

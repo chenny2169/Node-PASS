@@ -4,6 +4,8 @@ Library           Selenium2Library
 
 *** Variables ***
 ${homeworkName}    1234
+${fileUploadPath}    ${CURDIR}
+${fileDownloadPath}    ~/downloads
 
 *** Test Cases ***
 成功新增作業(CMS-TC02)
@@ -122,16 +124,16 @@ ${homeworkName}    1234
     [Teardown]    run keywords    Close Browser    老師刪除作業並關閉
 
 學生下載作業(CMS-TC09)
-    [Setup]    run keywords    老師新增作業並關閉    學生上傳作業
+    [Setup]    run keywords    老師新增作業並關閉    學生準備作業並上傳
     studentLogin
     Click Element    id=enterSoftware Engineering
     Click Element    id=uploadhomework_${homeworkName}
     Click Element    id = download_105598002
-    File Should Exist    C:\\Users\\jeni\\Downloads\\105598002_${homeworkName}.txt
+    File Should Exist    ${fileDownloadPath}/105598002_${homeworkName}.txt
     [Teardown]    run keywords    Close Browser    刪除上傳的作業    老師刪除作業並關閉
 
 老師/TA下載作業(CMS-TC10)
-    [Setup]    run keywords    老師新增作業並關閉    學生上傳作業
+    [Setup]    run keywords    老師新增作業並關閉    學生準備作業並上傳
     teacherLogin
     Click Element    id=Software Engineering
     Click Element    id=${homeworkName}
@@ -141,7 +143,7 @@ ${homeworkName}    1234
     Element Should be Visible    id = 105598002
     Click Element    id = toMark_105598002
     Click Element    id = download_105598002
-    File Should Exist    C:\\Users\\jeni\\Downloads\\105598002_${homeworkName}.txt
+    File Should Exist    ${fileDownloadPath}/105598002_${homeworkName}.txt
     [Teardown]    run keywords    Close Browser    刪除上傳的作業    老師刪除作業並關閉
 
 學生下載未曾上傳的作業(CMS-TC11)
@@ -309,14 +311,16 @@ go to login page
     Click element    id = delete_${homeworkName}
     close browser
 
-學生上傳作業
+學生準備作業並上傳
+    Create File    ${fileUploadPath}/105598002_${homeworkName}.txt    This is a file that robotframework create for test.
     studentLogin
     Click Element    id=enterSoftware Engineering
     Click Element    id=uploadhomework_${homeworkName}
-    Choose file    id=uploadFile    C:\\Users\\jeni\\Desktop\\105598002_${homeworkName}.txt
+    Choose file    id=uploadFile    ${fileUploadPath}/105598002_${homeworkName}.txt
     Click Element    id=oktoUpdate
     close browser
 
 刪除上傳的作業
-    Remove File    C:\\Users\\jeni\\Desktop\\Node-PASS\\homeworkCollection\\105598002_${homeworkName}.txt
-    Remove File    C:\\Users\\jeni\\Downloads\\105598002_${hom3eworkName}.txt
+    Remove File    ${CURDIR}/../homeworkCollection/105598002_${homeworkName}.txt
+    Remove File    ${fileDownloadPath}/105598002_${homeworkName}.txt
+    Remove File    ${fileUploadPath}/105598002_${homeworkName}.txt

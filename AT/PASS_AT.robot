@@ -5,7 +5,7 @@ Library           Selenium2Library
 ${homeworkName}    1234
 
 *** Test Cases ***
-createHwSuccessTest(CMS-TC02)
+成功新增作業(CMS-TC02)
     [Setup]    teacherLogin
     click element    id=Software Engineering
     click element    id=createHW
@@ -24,7 +24,7 @@ createHwSuccessTest(CMS-TC02)
     [Teardown]    Run Keywords    click element    id=delete_${homeworkName}
     ...    AND    close browser
 
-createHWButContentIsEmpty(CMS-TC03)
+新增作業內容為空(CMS-TC03)
     [Setup]    teacherLogin
     click element    id=Software Engineering
     click element    id=createHW
@@ -37,7 +37,7 @@ createHWButContentIsEmpty(CMS-TC03)
     should be equal    ${testDueDate}    日期格式錯誤
     [Teardown]    close browser
 
-editHWSuccessTest(CMS-TC04)
+成功編輯作業(CMS-TC04)
     [Setup]    addHW
     teacherLogin
     Click Element    id=Software Engineering
@@ -54,7 +54,7 @@ editHWSuccessTest(CMS-TC04)
     [Teardown]    Run Keywords    click element    id=delete_${homeworkName}
     ...    AND    close browser
 
-editHWButContentIsEmpty(CMS-TC05)
+編輯作業但欄位為空(CMS-TC05)
     [Setup]    addHW
     teacherLogin
     Click Element    id=Software Engineering
@@ -74,7 +74,7 @@ editHWButContentIsEmpty(CMS-TC05)
     ...    AND    click element    id=delete_${homeworkName}
     ...    AND    close browser
 
-deleteHWSuccessTest(CMS-TC06)
+成功刪除作業(CMS-TC06)
     [Setup]    addHw
     teacherLogin
     Click Element    id=Software Engineering

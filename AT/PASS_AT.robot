@@ -130,7 +130,7 @@ ${fileDownloadPath}    ~/downloads
     Click Element    id=uploadhomework_${homeworkName}
     Click Element    id = download_105598002
     File Should Exist    ${fileDownloadPath}/105598002_${homeworkName}.txt
-    [Teardown]    run keywords    Close Browser    刪除上傳的作業    老師刪除作業並關閉
+    [Teardown]    run keywords    Close Browser    刪除上傳的作業    刪除下載的作業    老師刪除作業並關閉
 
 老師/TA下載作業(CMS-TC10)
     [Setup]    run keywords    老師新增作業並關閉    學生準備作業並上傳
@@ -144,7 +144,7 @@ ${fileDownloadPath}    ~/downloads
     Click Element    id = toMark_105598002
     Click Element    id = download_105598002
     File Should Exist    ${fileDownloadPath}/105598002_${homeworkName}.txt
-    [Teardown]    run keywords    Close Browser    刪除上傳的作業    老師刪除作業並關閉
+    [Teardown]    run keywords    Close Browser    刪除上傳的作業    刪除下載的作業    老師刪除作業並關閉
 
 學生下載未曾上傳的作業(CMS-TC11)
     [Setup]    老師新增作業並關閉
@@ -170,6 +170,27 @@ ${fileDownloadPath}    ~/downloads
     ${alert} =    get text    id = danger-alert
     Should be equal    ${alert}    x\n沒有上傳檔案
     [Teardown]    run keywords    Close Browser    老師刪除作業並關閉
+
+上傳作業(CMS-TC13)
+    [Setup]    老師新增作業並關閉
+    Create File    ${fileUploadPath}/105598002_${homeworkName}.txt    This is a file that robotframework create for test.
+    studentLogin
+    Comment    element text should be    class =jumbotron    105598002學生作業繳交區
+    Click Element    id=enterSoftware Engineering
+    Comment    element text should be    class =jumbotron    105598002 Software Engineering作業區
+    element should contain    id=homeworkState_${homeworkName}    未繳交
+    ${uploadtime}    get text    id=submitTime_${homeworkName}
+    log    ${uploadtime}
+    Should be equal    ${uploadtime}    ${EMPTY}
+    Click Element    id=uploadhomework_${homeworkName}
+    Comment    element text should be    class =jumbotron    Software Engineering Homework for upload test 上傳作業區
+    Choose file    id=uploadFile    ${fileUploadPath}/105598002_${homeworkName}.txt
+    Click Element    id=oktoUpload
+    Comment    element text should be    class =jumbotron    105598002 Software Engineering作業區
+    element text should be    id=homeworkState_${homeworkName}    已繳交
+    Should Not Be Empty    id=submitTime_${homeworkName}
+    close browser
+    [Teardown]    run keywords    老師刪除作業並關閉    刪除上傳的作業
 
 使用者登入成功(UAMS-TC01)
     [Setup]
@@ -317,10 +338,12 @@ go to login page
     Click Element    id=enterSoftware Engineering
     Click Element    id=uploadhomework_${homeworkName}
     Choose file    id=uploadFile    ${fileUploadPath}/105598002_${homeworkName}.txt
-    Click Element    id=oktoUpdate
+    Click Element    id=oktoUpload
     close browser
 
 刪除上傳的作業
     Remove File    ${CURDIR}/../homeworkCollection/105598002_${homeworkName}.txt
-    Remove File    ${fileDownloadPath}/105598002_${homeworkName}.txt
     Remove File    ${fileUploadPath}/105598002_${homeworkName}.txt
+
+刪除下載的作業
+    Remove File    ${fileDownloadPath}/105598002_${homeworkName}.txt

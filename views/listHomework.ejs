@@ -22,11 +22,11 @@
                 <tbody>
                     <tr>
                         <%  for(let i=0; i < result.homeworks.length; i++) { %>
-                        <td id="<%= result.homeworks[i].homeworkName %>1"><%= result.homeworks[i].homeworkName %></td>
-                        <td id="<%= result.homeworks[i].homeworkName %>2"><%= result.grades[i].homeworkState %></td>
-                        <td id="<%= result.homeworks[i].homeworkName %>3"><%= result.homeworks[i].dueDate %></td>
-                        <td id="<%= result.homeworks[i].homeworkName %>4"><%= result.grades[i].submitTime %></td>
-                        <td id="<%= result.homeworks[i].homeworkName %>5"><%= result.grades[i].homeworkGrade %></td>
+                        <td id="<%= result.homeworks[i].homeworkName %>"><%= result.homeworks[i].homeworkName %></td>
+                        <td id="homeworkState_<%= result.homeworks[i].homeworkName %>"><%= result.grades[i].homeworkState %></td>
+                        <td id="dueDate_<%= result.homeworks[i].homeworkName %>"><%= result.homeworks[i].dueDate %></td>
+                        <td id="submitTime_<%= result.homeworks[i].homeworkName %>"><%= result.grades[i].submitTime %></td>
+                        <td id="homeworkGrade_<%= result.homeworks[i].homeworkName %>"><%= result.grades[i].homeworkGrade %></td>
                         <td ><%= result.homeworks[i].dueDateExtension ? "可以補交" : "不可補交" %></td>
                         <td><a class="btn btn-info" id="uploadhomework_<%= result.homeworks[i].homeworkName %>" href="/listHomework/uploadHomework?homework_uuid=<%= result.homeworks[i]._id %>&studentID=<%= result.studentID %>" >上傳作業</a></td>                                       
                     </tr>

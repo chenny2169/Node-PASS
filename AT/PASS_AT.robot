@@ -175,22 +175,29 @@ ${fileDownloadPath}    ~/downloads
     [Setup]    老師新增作業並關閉
     Create File    ${fileUploadPath}/105598002_${homeworkName}.txt    This is a file that robotframework create for test.
     studentLogin
-    Comment    element text should be    class =jumbotron    105598002學生作業繳交區
+    element text should be    class =jumbotron    105598002學生作業繳交區
     Click Element    id=enterSoftware Engineering
-    Comment    element text should be    class =jumbotron    105598002 Software Engineering作業區
+    element text should be    class =jumbotron    105598002 Software Engineering作業區
     element should contain    id=homeworkState_${homeworkName}    未繳交
     ${uploadtime}    get text    id=submitTime_${homeworkName}
-    log    ${uploadtime}
     Should be equal    ${uploadtime}    ${EMPTY}
     Click Element    id=uploadhomework_${homeworkName}
-    Comment    element text should be    class =jumbotron    Software Engineering Homework for upload test 上傳作業區
+    element text should be    class =jumbotron    Software Engineering Homework for upload test 上傳作業區
     Choose file    id=uploadFile    ${fileUploadPath}/105598002_${homeworkName}.txt
     Click Element    id=oktoUpload
-    Comment    element text should be    class =jumbotron    105598002 Software Engineering作業區
+    element text should be    class =jumbotron    105598002 Software Engineering作業區
     element text should be    id=homeworkState_${homeworkName}    已繳交
     Should Not Be Empty    id=submitTime_${homeworkName}
-    close browser
-    [Teardown]    run keywords    老師刪除作業並關閉    刪除上傳的作業
+    [Teardown]    run keywords    Close browser    老師刪除作業並關閉    刪除上傳的作業
+
+課程底下沒有作業(CMS-TC14)
+    [Setup]
+    studentLogin
+    element text should be    class =jumbotron    105598002學生作業繳交區
+    Click Element    id=enterSoftware Engineering
+    element text should be    class =jumbotron    105598002 Software Engineering作業區
+    Element Should Not Be Visible    id = ${homeworkName}
+    [Teardown]    Close browser
 
 使用者登入成功(UAMS-TC01)
     [Setup]

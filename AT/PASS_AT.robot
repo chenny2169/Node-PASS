@@ -116,7 +116,6 @@ ${fileDownloadPath}    ~/downloads
     Element Should be Visible    id = 105598003
     Element Should be Visible    id = 105598002
     Click Element    id = toMark_105598002
-    Comment    open
     Input Text    id = grade    -50
     Click Button    id = markHw_105598002
     ${grade}=    Execute JavaScript    return window.document.getElementById("grade").getAttribute("oninvalid").split("'")[1]
@@ -182,7 +181,7 @@ ${fileDownloadPath}    ~/downloads
     ${uploadtime}    get text    id=submitTime_${homeworkName}
     Should be equal    ${uploadtime}    ${EMPTY}
     Click Element    id=uploadhomework_${homeworkName}
-    element text should be    class =jumbotron    Software Engineering Homework for upload test 上傳作業區
+    element text should be    class =jumbotron    Software Engineering ${homeworkName} 上傳作業區
     Choose file    id=uploadFile    ${fileUploadPath}/105598002_${homeworkName}.txt
     Click Element    id=oktoUpload
     element text should be    class =jumbotron    105598002 Software Engineering作業區
@@ -200,7 +199,7 @@ ${fileDownloadPath}    ~/downloads
     [Teardown]    Close browser
 
 上傳檔案為空(CMS-TC15)
-    [Setup]    run keywords    老師新增作業並關閉
+    [Setup]    老師新增作業並關閉
     Create File    ${fileUploadPath}/105598002_${homeworkName}.txt
     studentLogin
     element text should be    class =jumbotron    105598002學生作業繳交區
@@ -210,13 +209,56 @@ ${fileDownloadPath}    ~/downloads
     ${uploadtime}    get text    id=submitTime_${homeworkName}
     Should be equal    ${uploadtime}    ${EMPTY}
     Click Element    id=uploadhomework_${homeworkName}
-    element text should be    class =jumbotron    Software Engineering Homework for upload test 上傳作業區
+    element text should be    class =jumbotron    Software Engineering ${homeworkName} 上傳作業區
     Click Element    id=oktoUpload
     ${loadFile} =    Execute JavaScript    return window.document.getElementById("uploadFile").getAttribute('oninvalid').includes("請選擇檔案");
     Should be true    ${loadFile}
     [Teardown]    run keywords    Close browser
     ...    AND    Remove File    ${fileUploadPath}/105598002_${homeworkName}.txt
     ...    AND    老師刪除作業並關閉
+
+重複上傳作業(CMS-TC17)
+    [Setup]    老師新增作業並關閉
+    Create File    ${fileUploadPath}/105598002_${homeworkName}.txt    This is a file that robotframework create for test.
+    studentLogin
+    element text should be    class =jumbotron    105598002學生作業繳交區
+    Click Element    id=enterSoftware Engineering
+    element text should be    class =jumbotron    105598002 Software Engineering作業區
+    element should contain    id=homeworkState_${homeworkName}    未繳交
+    ${uploadtime}    get text    id=submitTime_${homeworkName}
+    Should be equal    ${uploadtime}    ${EMPTY}
+    Click Element    id=uploadhomework_${homeworkName}
+    element text should be    class =jumbotron    Software Engineering Homework for upload test 上傳作業區
+    Choose file    id=uploadFile    ${fileUploadPath}/105598002_${homeworkName}.txt
+    Click Element    id=oktoUpload
+    element text should be    class =jumbotron    105598002 Software Engineering作業區
+    element text should be    id=homeworkState_${homeworkName}    已繳交
+    Should Not Be Empty    id=submitTime_${homeworkName}
+    ${handintime_first}    get text    id=submitTime_${homeworkName}
+    Click Element    id=uploadhomework_${homeworkName}
+    element text should be    class =jumbotron    Software Engineering Homework for upload test 上傳作業區
+    Choose file    id=uploadFile    ${fileUploadPath}/105598002_${homeworkName}.txt
+    Click Element    id=oktoUpload
+    element text should be    class =jumbotron    105598002 Software Engineering作業區
+    element text should be    id=homeworkState_${homeworkName}    已繳交
+    ${handintime_second}    get text    id=submitTime_${homeworkName}
+    should not be equal    ${handintime_first}    ${handintime_second}
+    [Teardown]    run keywords    Close browser    老師刪除作業並關閉    刪除上傳的作業
+
+學生不能補教逾期作業
+    [Setup]    老師新增逾期作業
+    studentLogin
+    Comment    element text should be    class =jumbotron    105598002學生作業繳交區
+    Click Element    id=enterSoftware Engineering
+    Comment    element text should be    class =jumbotron    105598002 Software Engineering作業區
+    element should contain    id=homeworkState_${homeworkName}    未繳交
+    ${uploadtime}    get text    id=submitTime_${homeworkName}
+    Should be equal    ${uploadtime}    ${EMPTY}
+    Click Element    id=uploadhomework_${homeworkName}
+    Comment    element text should be    class =jumbotron    Software Engineering Homework for upload test 上傳作業區
+    ${alert}    get text    id = danger-alert
+    Should be equal    ${alert}    x\n上傳截止
+    [Teardown]    run keywords    Close Browser    老師刪除作業並關閉
 
 使用者登入成功(UAMS-TC01)
     [Setup]
@@ -373,3 +415,15 @@ go to login page
 
 刪除下載的作業
     Remove File    ${fileDownloadPath}/105598002_${homeworkName}.txt
+
+老師新增逾期作業
+    teacherLogin
+    Click Element    id=Software Engineering
+    Click Button    id=createHW
+    Input Text    id= InputhomeworkName    ${homeworkName}
+    Input Text    id=InputDueDateInAddHW    12/01/2017 0:00 AM
+    Input Text    id= InputhwPercentage    100%
+    Input Text    id= InputhwFileExtension    txt
+    Input Text    id = InputhwHomeworkDescription    過期作業
+    Click Button    id = addHw
+    close browser

@@ -143,7 +143,7 @@ describe('show homework belong to specific course ', function () {
     
   })
 
-  describe('edit for homework infos', function() {
+  describe.skip('edit for homework infos', function() {
     let authenticatedSession
     beforeEach(function (done) {
       agent.post('/login')

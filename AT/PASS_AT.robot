@@ -236,7 +236,7 @@ ${fileDownloadPath}    ~/downloads
     Should Not Be Empty    id=submitTime_${homeworkName}
     ${handintime_first}    get text    id=submitTime_${homeworkName}
     Click Element    id=uploadhomework_${homeworkName}
-    element text should be    class =jumbotron    Software Engineering Homework for upload test 上傳作業區
+    element text should be    class =jumbotron    Software Engineering ${homeworkName} 上傳作業區
     Choose file    id=uploadFile    ${fileUploadPath}/105598002_${homeworkName}.txt
     Click Element    id=oktoUpload
     element text should be    class =jumbotron    105598002 Software Engineering作業區

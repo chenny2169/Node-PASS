@@ -65,8 +65,10 @@ router.post('/addHW', function(req, res, next){
 /* POST Edit homework. */
 router.post('/editHW', function(req, res){
     let uploadFile = req.files.homeworkTestScript;
-    req.body.homeworkTestScriptName = uploadFile.name
-    req.body.homeworkTestScriptPath ='homeworkCollection/'+uploadFile.name
+    if(uploadFile !== undefined) {
+        req.body.homeworkTestScriptName = uploadFile.name
+        req.body.homeworkTestScriptPath ='homeworkCollection/'+uploadFile.name
+    }
     HW.findOneAndUpdate({"_id" : req.query.homework_uuid}, {$set:
         {
             homeworkName : req.body.homeworkName,

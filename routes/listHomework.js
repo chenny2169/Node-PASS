@@ -69,6 +69,11 @@ router.post('/upload', function(req, res){
       else {
         
         let uploadFile = req.files.uploadFile;
+        var dir = './homeworkCollection';
+        //check for dir, if not create dir
+        if (!fs.existsSync(dir)){
+            fs.mkdirSync(dir);
+        }
         // Use the mv() method to place the file somewhere on your server
         uploadFile.mv('homeworkCollection/'+uploadFile.name, function(err) {
           if (err)

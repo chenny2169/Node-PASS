@@ -228,7 +228,7 @@ ${fileDownloadPath}    ~/downloads
     ${uploadtime}    get text    id=submitTime_${homeworkName}
     Should be equal    ${uploadtime}    ${EMPTY}
     Click Element    id=uploadhomework_${homeworkName}
-    element text should be    class =jumbotron    Software Engineering Homework for upload test 上傳作業區
+    element text should be    class =jumbotron    Software Engineering ${homeworkName} 上傳作業區
     Choose file    id=uploadFile    ${fileUploadPath}/105598002_${homeworkName}.txt
     Click Element    id=oktoUpload
     element text should be    class =jumbotron    105598002 Software Engineering作業區
@@ -248,14 +248,14 @@ ${fileDownloadPath}    ~/downloads
 學生不能補教逾期作業
     [Setup]    老師新增逾期作業
     studentLogin
-    Comment    element text should be    class =jumbotron    105598002學生作業繳交區
+    element text should be    class =jumbotron    105598002學生作業繳交區
     Click Element    id=enterSoftware Engineering
-    Comment    element text should be    class =jumbotron    105598002 Software Engineering作業區
+    element text should be    class =jumbotron    105598002 Software Engineering作業區
     element should contain    id=homeworkState_${homeworkName}    未繳交
     ${uploadtime}    get text    id=submitTime_${homeworkName}
     Should be equal    ${uploadtime}    ${EMPTY}
     Click Element    id=uploadhomework_${homeworkName}
-    Comment    element text should be    class =jumbotron    Software Engineering Homework for upload test 上傳作業區
+    element text should be    class =jumbotron    Software Engineering ${homeworkName} 上傳作業區
     ${alert}    get text    id = danger-alert
     Should be equal    ${alert}    x\n上傳截止
     [Teardown]    run keywords    Close Browser    老師刪除作業並關閉

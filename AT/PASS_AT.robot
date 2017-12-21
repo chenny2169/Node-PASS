@@ -410,7 +410,7 @@ go to login page
     close browser
 
 刪除上傳的作業
-    Remove File    ${CURDIR}/../homeworkCollection/105598002_${homeworkName}.txt
+    Remove File    C:/Users/User/Desktop/node-pass/homeworkCollection/105598002_${homeworkName}.txt
     Remove File    ${fileUploadPath}/105598002_${homeworkName}.txt
 
 刪除下載的作業

@@ -33,6 +33,13 @@ router.get('/:courseName', controller.showSpecificCourseHw)
 
 /* POST Add homework. */
 router.post('/addHW', function(req, res, next){
+    let uploadFile = req.files.homeworkTestScript;
+    req.body.homeworkTestScriptName =uploadFile.name
+    req.body.homeworkTestScriptPath ='homeworkCollection/'+uploadFile.name
+    uploadFile.mv('homeworkCollection/'+uploadFile.name, function(err) {
+          if (err)
+            return res.status(500).send(err);
+        })
     HW.create(req.body).then(function(homework){
         studentDB.find({role:'student'}).then(function(students) {
             students.forEach(function(student) {
@@ -54,7 +61,30 @@ router.post('/addHW', function(req, res, next){
 })
 
 /* POST Edit homework. */
-router.post('/editHW', controller.editSpecificCouresHwInfos)
-
+router.post('/editHW', function(req, res){
+    let uploadFile = req.files.homeworkTestScript;
+    req.body.homeworkTestScriptName = uploadFile.name
+    req.body.homeworkTestScriptPath ='homeworkCollection/'+uploadFile.name
+    HW.findOneAndUpdate({"_id" : req.query.homework_uuid}, {$set:
+        {
+            homeworkName : req.body.homeworkName,
+            dueDate : req.body.dueDate, 
+            percentage : req.body.percentage, 
+            fileExtension : req.body.fileExtension, 
+            homeworkDescription : req.body.homeworkDescription,
+            dueDateExtension : req.body.dueDateExtension,
+            homeworkTestScriptName : req.body.homeworkTestScriptName,
+            homeworkTestScriptPath : req.body.homeworkTestScriptPath
+        }
+    },{ new: true }).then(function(result){
+       if(req.header('Content-Type')=='application/json'){
+          console.log(result)
+          res.json({result: result})
+       }else{
+          console.log(result)
+          res.redirect('/hw/'+req.body.courseName)    
+       }
+    })
+})
 
 module.exports = router;

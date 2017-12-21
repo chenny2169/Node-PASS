@@ -12,6 +12,11 @@ exports.showSpecificCourseHw = function(req, res, next){
 }
 
 exports.editSpecificCouresHwInfos = function(req, res, next){
+    console.log(req.body)
+    console.log(req.files)
+    // let uploadFile = req.files.homeworkTestScript;
+    // req.body.homeworkTestScriptName = uploadFile.name
+    // req.body.homeworkTestScriptPath ='homeworkCollection/'+uploadFile.name
   HW.findOneAndUpdate({"_id" : req.query.homework_uuid}, {$set:
         {
             homeworkName : req.body.homeworkName,
@@ -19,7 +24,9 @@ exports.editSpecificCouresHwInfos = function(req, res, next){
             percentage : req.body.percentage, 
             fileExtension : req.body.fileExtension, 
             homeworkDescription : req.body.homeworkDescription,
-            dueDateExtension : req.body.dueDateExtension
+            dueDateExtension : req.body.dueDateExtension,
+            // homeworkTestScriptName : req.body.homeworkTestScriptName,
+            // homeworkTestScriptPath : req.body.homeworkTestScriptPath
         }
     },{ new: true }).then(function(result){
        if(req.header('Content-Type')=='application/json'){

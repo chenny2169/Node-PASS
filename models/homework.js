@@ -23,7 +23,13 @@ const HwSchema = new Schema({
     dueDateExtension:{
         type : Boolean,
         default : false
-    }
+    },
+    homeworkTestScriptName:{
+        type : String
+    },
+    homeworkTestScriptPath:{
+        type : String
+    },
 })
 
 const HW = mongoose.model('hwCollection',HwSchema)

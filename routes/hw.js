@@ -34,12 +34,14 @@ router.get('/:courseName', controller.showSpecificCourseHw)
 /* POST Add homework. */
 router.post('/addHW', function(req, res, next){
     let uploadFile = req.files.homeworkTestScript;
-    req.body.homeworkTestScriptName =uploadFile.name
-    req.body.homeworkTestScriptPath ='homeworkCollection/'+uploadFile.name
-    uploadFile.mv('homeworkCollection/'+uploadFile.name, function(err) {
-          if (err)
-            return res.status(500).send(err);
-        })
+    if(uploadFile !== undefined) {
+        req.body.homeworkTestScriptName =uploadFile.name
+        req.body.homeworkTestScriptPath ='homeworkCollection/'+uploadFile.name
+        uploadFile.mv('homeworkCollection/'+uploadFile.name, function(err) {
+              if (err)
+                return res.status(500).send(err);
+            })
+    }
     HW.create(req.body).then(function(homework){
         studentDB.find({role:'student'}).then(function(students) {
             students.forEach(function(student) {

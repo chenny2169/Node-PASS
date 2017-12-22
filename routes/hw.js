@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const fs = require('fs'); 
 const HW = require('../models/homework')
 const GradeDB = require('../models/grades')
 const studentDB = require('../models/student')
@@ -34,6 +35,11 @@ router.get('/:courseName', controller.showSpecificCourseHw)
 /* POST Add homework. */
 router.post('/addHW', function(req, res, next){
     let uploadFile = req.files.homeworkTestScript;
+    var dir = './homeworkCollection';
+    //check for dir, if not create dir
+    if (!fs.existsSync(dir)){
+        fs.mkdirSync(dir);
+    }
     if(uploadFile !== undefined) {
         req.body.homeworkTestScriptName =uploadFile.name
         req.body.homeworkTestScriptPath ='homeworkCollection/'+uploadFile.name

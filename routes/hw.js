@@ -15,7 +15,7 @@ router.get('/download/:_id', function(req, res){
 
 router.get('/edit/:_id', function(req, res){
     HW.find({"_id":req.params._id}).then(function(result){
-        console.log(result.homeworkTestScriptPath)
+        console.log(result[0])
         res.render('editHomework', {title:'Edit Homework', result :result})
     })
 })
@@ -75,9 +75,18 @@ router.post('/addHW', function(req, res, next){
 /* POST Edit homework. */
 router.post('/editHW', function(req, res){
     let uploadFile = req.files.homeworkTestScript;
+    var dir = './homeworkCollection';
+    //check for dir, if not create dir
+    if (!fs.existsSync(dir)){
+        fs.mkdirSync(dir);
+    }
     if(uploadFile !== undefined) {
         req.body.homeworkTestScriptName = uploadFile.name
         req.body.homeworkTestScriptPath ='homeworkCollection/'+uploadFile.name
+        uploadFile.mv('homeworkCollection/'+uploadFile.name, function(err) {
+            if (err)
+            return res.status(500).send(err);
+        })
     }
     HW.findOneAndUpdate({"_id" : req.query.homework_uuid}, {$set:
         {

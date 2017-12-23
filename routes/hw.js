@@ -6,11 +6,17 @@ const GradeDB = require('../models/grades')
 const studentDB = require('../models/student')
 var controller = require('../controllers/homeworkController');
 
+router.get('/download/:_id', function(req, res){
+    HW.findOne({"_id":req.params._id}).then(function(result){
+        console.log(result)
+        res.download(result.homeworkTestScriptPath)
+    })
+})
 
 router.get('/edit/:_id', function(req, res){
     HW.find({"_id":req.params._id}).then(function(result){
-        console.log(result)
-         res.render('editHomework', {title:'Edit Homework', result :result})
+        console.log(result.homeworkTestScriptPath)
+        res.render('editHomework', {title:'Edit Homework', result :result})
     })
 })
 
@@ -27,10 +33,8 @@ router.get('/delete/:_id', function(req, res){
     })
 })
 
-
 /* GET homework home page. */
 router.get('/:courseName', controller.showSpecificCourseHw)
-
 
 /* POST Add homework. */
 router.post('/addHW', function(req, res, next){

@@ -38,7 +38,11 @@
           <td id="HW<%= result[i].homeworkName %>_percentage"><%= result[i].percentage %></td>
           <td id="HW<%= result[i].homeworkName %>_fileExtension"><%= result[i].fileExtension %></td>
           <td id="HW<%= result[i].homeworkName %>_homeworkDescription"><%= result[i].homeworkDescription %></td>
-          <td id="HW<%= result[i].homeworkName %>homeworkTestScriptName"><%= result[i].homeworkTestScriptName %></td>
+          <td id="HW<%= result[i].homeworkName %>homeworkTestScriptName">
+          <a href="/hw/download/<%= result[i]._id%>" id="<%= result[i].homeworkTestScriptName %>" title="<%= result[i].homeworkTestScriptName %>">
+              <%= result[i].homeworkTestScriptName %>
+          </a>
+          </td>
           <td id="HW<%= result[i].homeworkName %>_dueDateExtension"><%= result[i].dueDateExtension ? "可以補交" : "不可補交" %></td>
           <td class="center">
             <a class="btn icon" href="/hw/edit/<%= result[i]._id%>" id="edit_<%= result[i].homeworkName%>" title="編輯" style="text-decoration:none">

@@ -7,6 +7,17 @@
     <h1><%= title %></h1>
     <p>select grade report for course</p>
   </div>
+  <% if (locals.messages) { %>
+    <div class="alert alert-danger" id="danger-alert">
+        <button type=button class=close data-dismiss=alert>x</button>
+        <strong><%= messages.msg %></strong>
+    </div>
+  <% } %>
+  <script>
+      $('#danger-alert').fadeTo(2000, 500).slideUp(500, function(){
+          $('#danger-alert').alert('close');
+        }); 
+  </script>
   <table class="table table-inverse" id="myTable">
         <thead>
           <tr>
@@ -35,7 +46,7 @@
         </tr>
       <% } %>
         </tbody>
-        <td><a class="btn btn-danger" href="" id="SubmitBtn">產生報表</a></td>
+        <td><a class="btn btn-danger" href="/gradesReport/generate?noSelect=true" id="SubmitBtn" required>產生報表</a></td>
   </table>
 </div>
 

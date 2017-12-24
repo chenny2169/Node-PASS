@@ -349,7 +349,7 @@ ${fileDownloadPath}    ~/downloads
     click element    id = gradesReport
     click element    id = SubmitBtn
     Wait Until Element Is Visible    id = danger-alert    3s
-    Element Text Should Be    id = danger-alert    you have not choice
+    Element Text Should Be    id = danger-alert    x\n請選擇作業
     [Teardown]    Run Keywords    close browser    老師刪除作業並關閉
 
 *** Keywords ***

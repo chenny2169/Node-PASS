@@ -8,15 +8,14 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/ping/byjenkins', function(req, res){
-  // var url = "http://140.124.181.129:8080/job/student1/ws/mochawesome-report/mochawesome.json"
+
   let jobName=String(req.query.homeworkInfo)//query=>homeworkInfo=105598001_SE1
   let homeworkInfo ={
     studentID:jobName.split('_')[0],
     homeworkName:jobName.split('_')[1]
   }
-  let baseurl="http://140.124.181.129:8080/job/"
+  let baseurl="http://leo:1209@localhost:8080/job/"
   let filePath="/ws/mochawesome-report/mochawesome.json"
-
   request({
       url: baseurl.concat(jobName).concat(filePath),
       json: true

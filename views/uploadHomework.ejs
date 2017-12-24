@@ -46,7 +46,11 @@
         <tr>
             <th>作業描述</th>
             <td><%= result.homework[0].homeworkDescription %></td>
-        </tr>                       
+        </tr>   
+        <tr>
+            <th>作業評語</th>
+            <td><textarea rows="3" cols="40" name="feedback" id="<%= result.studentID %>_<%= result.homeworks[0].homeworkName %>_feedback"  readonly><%= result.grade[0].homeworkFeedback %></textarea></td>
+        </tr>                     
     </table><br>
     <form action="/listHomework/upload?homework_uuid=<%= result.homework[0]._id %>&studentID=<%= result.studentID %>" method="POST" align="center" enctype="multipart/form-data">
 

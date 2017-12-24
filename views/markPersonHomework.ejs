@@ -23,7 +23,8 @@
                             <th>學號</th>
                             <th>姓名</th>
                             <th>繳交時間</th>  
-                            <th>作業下載</th>                                       
+                            <th>作業下載</th>     
+                            <th>作業評語</th>                                   
                             <th>成績</th>
                         </tr>
                     </thead>   
@@ -33,6 +34,7 @@
                             <td><%= result[0].studentName %></td>
                             <td><%= result[0].submitTime %></td>
                             <td><a class="btn btn-info" id="download_<%= result[0].studentID %>" href="/markHomework/person/download?studentID=<%= result[0].studentID %>&homework_uuid=<%= result[0].homework_uuid %>" title="下載同學作業" >下載作業</a></td>
+                            <td><textarea rows="3" cols="40" name="feedback" id="<%= result[0].studentID %>_<%= result[0].homeworkName %>_feedback" > <%= result[0].homeworkFeedback %></textarea></td>
                             <td><input type="text" id="grade" name="grade" oninvalid="setCustomValidity('數字格式錯誤');" pattern="^(?:[0-9]\d?|100)$" oninput="setCustomValidity('');" value="<%= result[0].homeworkGrade %>" required></td>
                         </tr>
                     </tbody>   

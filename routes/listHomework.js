@@ -28,7 +28,7 @@ router.get('/', function(req, res){
     GradeDB.find({"homework_uuid" :homework_uuid, "studentID" :req.query.studentID}).then(function(grade){
       result.grades = grade
       return result
-    }).then(function(a){
+    }).then(function(){
       console.log(result)
       res.render('listHomework', { title:req.query.studentID+' '
         +req.query.courseName+'作業區' , result :result });
@@ -39,19 +39,27 @@ router.get('/', function(req, res){
 router.get('/uploadHomework', function(req, res){
   let result = {
       studentID :  req.query.studentID,
-      homework :[]
+      homework :[],
+      grade :[]
   }
   HW.find({"_id":req.query.homework_uuid}).then(function(homework){
     let canUpload = (homework[0].dueDateExtension == true) || !(overDeadline(homework[0].dueDate))
     result.homework = homework
     result.homework["canUpload"] = canUpload
-    console.log(result)
     if(!canUpload){
       req.flash('msg','上傳截止');
       res.locals.messages = req.flash();
     }
+    return homework
+  }).then(function(homework) {
+    GradeDB.find({"homework_uuid": homework[0]._id, "studentID": req.query.studentID}).then(function(grade) {
+      result.grade = grade
+      return result
+    }).then(function() {
+      console.log(result)
       res.render('uploadHomework', { title: homework[0].courseName+' '
           +homework[0].homeworkName+' 上傳作業區' , result :result });
+    })
   })
 })
 

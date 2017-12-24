@@ -30,7 +30,7 @@ router.post('/person/updateGrade', function(req, res){
   console.log(req.body.grade)
   console.log(req.query.studentID)
   GradesDB.update({studentID : req.query.studentID, homework_uuid : req.query.homework_uuid},
-    {$set:{homeworkGrade : req.body.grade}}).then(function(result){
+    {$set:{homeworkGrade : req.body.grade, homeworkFeedback : req.body.feedback}}).then(function(result){
       res.redirect('/markHomework/'+req.query.homework_uuid)
     })
 })

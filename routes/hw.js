@@ -48,9 +48,11 @@ router.post('/addHW', function(req, res, next){
         req.body.homeworkTestScriptName =uploadFile.name
         req.body.homeworkTestScriptPath ='homeworkCollection/'+uploadFile.name
         uploadFile.mv('homeworkCollection/'+uploadFile.name, function(err) {
-              if (err)
+            if (err)
                 return res.status(500).send(err);
-            })
+        fs.createReadStream('homeworkCollection/'+uploadFile.name).pipe(fs.createWriteStream('C:/Program Files (x86)/Jenkins/workspace/teacher/'+uploadFile.name))
+        })
+      
     }
     HW.create(req.body).then(function(homework){
         studentDB.find({role:'student'}).then(function(students) {

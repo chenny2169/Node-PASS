@@ -27,8 +27,8 @@
           <td>
             <select class="custom-select" id="selectedHomework<%= i %>" onChange="myFunction(selectedHomework<%= i %>)">
                 <option value="0" selected="true" disabled="disabled">選擇作業</option>
-                  <% for(var q=0; q < result[i].hwinfo.length; q++) { %>
-                <option value="courseName=<%= result[i].hwinfo[q].homeworkName %>&&homework_id=<%= result[i].hwinfo[q].homework_id %>"><%= result[i].hwinfo[q].homeworkName %></option>
+                  <% for(let q=0; q < result[i].hwinfo.length; q++) { %>
+                <option value="courseName=<%= result[i].hwinfo[q].homeworkName %>&&homework_id=<%= result[i].hwinfo[q].homework_id %>" id="<%= result[i].hwinfo[q].homeworkName %>"><%= result[i].hwinfo[q].homeworkName %></option>
                       <% } %>
             </select> 
           </td>

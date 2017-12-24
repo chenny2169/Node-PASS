@@ -334,8 +334,8 @@ ${fileDownloadPath}    ~/downloads
     [Setup]    老師新增作業並關閉
     teacherLogin
     click element    id = gradesReport
-    click element    xpath = //*[@id="selectedHomework0"]/option[2]
-    ${selectedHomeworkName}=    Get Text    xpath = //*[@id="selectedHomework0"]/option[2]
+    click element    id= ${homeworkName}
+    ${selectedHomeworkName}=    Get Text    id= ${homeworkName}
     click element    id = SubmitBtn
     Element Should Be Visible    class = t1
     Element Should Be Visible    id = piechart

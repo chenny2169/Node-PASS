@@ -5,33 +5,27 @@
 <div class="jumbotron" >
 <h1><%= title%></h1>        
 </div>
-<div class="container">
-    <div class="row">
-        <div class="span5">
-            <table class="table table-striped table-condensed">
-                <thead>
-                    <tr>
-                        <th>課堂編號</th>
-                        <th>課堂名稱</th>
-                        <th>教室</th>
-                        <th>授課教師</th>
-                        <th>進入教室</th>                                          
-                    </tr>
-                </thead>   
-                <tbody>
-                    <%  for(let i=0; i < result.course.length; i++) { %>
-                    <tr>
-                        <td><%= result.course[i].courseID %></td>
-                        <td><%= result.course[i].courseName %></td>
-                        <td><%= result.course[i].classroom %></td>
-                        <td><%= result.course[i].instructor %></td>
-                        <td><a class="btn btn-info" id = "enter<%= result.course[i].courseName %>" href="/listHomework?courseName=<%= result.course[i].courseName %>&studentID=<%= result.studentID %>">進入</a></td>                                       
-                    </tr>
-                    <% } %>           
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+    <table  class="bordered">
+        <thead>
+            <tr>
+                <th>課堂編號</th>
+                <th>課堂名稱</th>
+                <th>教室</th>
+                <th>授課教師</th>
+                <th>進入教室</th>                                          
+            </tr>
+        </thead>   
+        <tbody>
+            <%  for(let i=0; i < result.course.length; i++) { %>
+            <tr>
+                <td><%= result.course[i].courseID %></td>
+                <td><%= result.course[i].courseName %></td>
+                <td><%= result.course[i].classroom %></td>
+                <td><%= result.course[i].instructor %></td>
+                <td><a class="btn btn-info" id = "enter<%= result.course[i].courseName %>" href="/listHomework?courseName=<%= result.course[i].courseName %>&studentID=<%= result.studentID %>">進入</a></td>                                       
+            </tr>
+            <% } %>           
+        </tbody>
+    </table>
 </div>
 <% include footer.ejs %>

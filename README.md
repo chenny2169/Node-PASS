@@ -1,5 +1,5 @@
 # Node-PASS
-This is a project for Software Engineering course 
+This is a project for Software Engineering course!! 
 
 ## 環境設定
 1.目前我們採用`pm2`來幫我們監控並開啟程式，請在`npm start`前先下`npm install pm2 -g`  
